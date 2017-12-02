@@ -5,25 +5,45 @@
 
 #include "ScoreSheet.h"
 
+//to get a random dice
 struct RandomDice
 {
+    //methods
     static int getRandomFace();
 };
+
+//to represent divces
 struct Dice
 {
-    const ScoreSheet::Color c;
+    //data
+    const ScoreSheet::Color c; 
     int face;
-    void roll();
+ 
+    //constructors
     Dice(ScoreSheet::Color);
+
+    //methods
+    void roll();
 };
+
+
+//collection of dices
 struct RollOfDice
 {
+    //data
     vector<Dice> dices;
-    RollOfDice(); //might use two diffrent construct if needed to work with both games
+
+    //constructors
+    RollOfDice(); //!!WARNING!!might use two diffrent construct if needed to work with both games
+
+    //methods
+    operator int();
     void roll();
     RollOfDice pair(int, int);
-    operator int();
+    
 };
+
+//various methods
 string colToStr(ScoreSheet::Color);
 ostream &operator<<(ostream &, const RollOfDice &);
 ostream &operator<<(ostream &, const Dice &);
