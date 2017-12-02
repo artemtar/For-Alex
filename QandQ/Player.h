@@ -4,20 +4,21 @@
 
 class Player
 {
-  protected:
-    string name;
-    bool status = false;
-    //ScoreSheet board;
+protected:
+  string name;
+  bool status = false;
+  //ScoreSheet board;
 
-  public:
-    Player(const string &_name = "");
-    inline void setStatusActive();
-    inline void setStatusInactuve();
-    virtual inline bool getStatus();
-    virtual void inputBeforeRoll(RollOfDice &) = 0;
-    virtual void inputAfterRoll(RollOfDice &) = 0;
-    friend istream &operator>>(istream &, Player &);
-    friend ostream &operator<<(ostream &, const Player &);
+public:
+  Player(const string &_name = "");
+  virtual ScoreSheet::Color choseColor() = 0;
+  inline void setStatusActive();
+  inline void setStatusInactuve();
+  virtual inline bool getStatus();
+  virtual void inputBeforeRoll(RollOfDice &) = 0;
+  virtual void inputAfterRoll(RollOfDice &) = 0;
+  friend istream &operator>>(istream &, Player &);
+  friend ostream &operator<<(ostream &, const Player &);
 };
 
 #endif //PLAYER
@@ -27,12 +28,13 @@ class Player
 
 class QwintoPlayer : public Player
 {
-    QwintoScoreSheet sheet;
+  QwintoScoreSheet sheet;
 
-  public:
-    QwintoPlayer(QwintoScoreSheet &, string _name);
-    virtual void inputBeforeRoll(RollOfDice &) override;
-    virtual void inputAfterRoll(RollOfDice &) override;
+public:
+  ScoreSheet::Color choseColor() override;
+  QwintoPlayer(QwintoScoreSheet &, string _name);
+  virtual void inputBeforeRoll(RollOfDice &) override;
+  virtual void inputAfterRoll(RollOfDice &) override;
 };
 
 #endif //QWINTOPLAYER
@@ -42,12 +44,13 @@ class QwintoPlayer : public Player
 
 class QwixPlayer : public Player
 {
-    QwixScoreSheet sheet;
+  QwixScoreSheet sheet;
 
-  public:
-    QwixPlayer(QwixScoreSheet &, string _name);
-    virtual void inputBeforeRoll(RollOfDice &) override;
-    virtual void inputAfterRoll(RollOfDice &) override;
+public:
+  ScoreSheet::Color choseColor() override;
+  QwixPlayer(QwixScoreSheet &, string _name);
+  virtual void inputBeforeRoll(RollOfDice &) override;
+  virtual void inputAfterRoll(RollOfDice &) override;
 };
 
 #endif //QWIXPLAYER
