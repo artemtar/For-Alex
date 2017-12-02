@@ -19,6 +19,7 @@ public:
   virtual void inputAfterRoll(RollOfDice &) = 0;
   friend istream &operator>>(istream &, Player &);
   friend ostream &operator<<(ostream &, const Player &);
+
 };
 
 #endif //PLAYER
