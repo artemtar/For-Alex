@@ -5,11 +5,12 @@
 
 #include "ScoreSheet.h"
 //**RandomDice**
+
 struct RandomDice
 {
+    //methods
     static int getRandomFace();
 };
-
 //**Dice**
 struct Dice
 {
@@ -21,9 +22,7 @@ struct Dice
     Dice(ScoreSheet::Color); 
 
     //methods
-    void roll();
-
- 
+    void roll(); 
 };
 
 //**RollOfDice**
@@ -34,11 +33,11 @@ struct RollOfDice
     //constructors
     RollOfDice(); //!!Warning!! might use two diffrent construct if needed to work with both games
     //methods
+
     void roll();
     RollOfDice pair(int, int);
-    operator int();
+    
 };
-
 // printing methods
 string colToStr(ScoreSheet::Color);
 ostream &operator<<(ostream &, const RollOfDice &);
