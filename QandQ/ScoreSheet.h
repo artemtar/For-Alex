@@ -19,6 +19,10 @@ struct RollOfDice;
 //pure virtual
 class ScoreSheet
 {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> f38edc1f8db56b361b1d9c698ffb1c33cfaf8545
   private:
   //data
     int overallScore;
@@ -27,9 +31,17 @@ class ScoreSheet
     //!!Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
   //data
+<<<<<<< HEAD
     int num_failed[4];
   //methods
     virtual bool validate(int) = 0;
+=======
+  int num_failed[4];
+  //methods
+    virtual bool validate(int) = 0;
+    
+
+>>>>>>> f38edc1f8db56b361b1d9c698ffb1c33cfaf8545
   public:
   //data
     enum Color
@@ -40,6 +52,7 @@ class ScoreSheet
         GREEN,
         WHITE
     };
+<<<<<<< HEAD
   //constructor
     ScoreSheet(string s = "");
   //functions
@@ -48,6 +61,17 @@ class ScoreSheet
     //virtual functions
     virtual bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) = 0;
     virtual int calcTotal() = 0;
+=======
+  //constructors
+    ScoreSheet(string s = "");
+  //methods
+    virtual bool score(RollOfDice, Color, int pos = -1) = 0;
+    void setTotal();
+    virtual int calcTotal() = 0;
+    //void setTotal();//??delete
+    virtual bool operator!();
+    //call cout of children//??delete
+>>>>>>> f38edc1f8db56b361b1d9c698ffb1c33cfaf8545
     virtual ostream& print(ostream &)const = 0;
     //frinds
      friend ostream &operator<<(ostream &, const ScoreSheet &);
@@ -60,11 +84,12 @@ class ScoreSheet
     
 };
 #endif //SCORESHEET
+//hi there
 
 #ifndef QWINTOROW
 #define QWINTOROW
 template <const ScoreSheet::Color C>
-class QwintoRow
+class QwintoRow 
 {
   private:
   //data
@@ -137,6 +162,7 @@ class QwintoScoreSheet : public ScoreSheet
     QwintoScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
   //functions
     bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) override;
+
     bool validate(int);
     int calcTotal() override;
     bool operator!() override;//!!what does it do!!
@@ -160,8 +186,12 @@ class QwixScoreSheet : public ScoreSheet//!!change to struct probably?!!
   //data
   //constructor
     QwixScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>, QwintoRow<GREEN>);
+<<<<<<< HEAD
   //functions
     bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) override;
+=======
+    bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
+>>>>>>> f38edc1f8db56b361b1d9c698ffb1c33cfaf8545
     bool validate(int);
     int calcTotal() override;
     bool operator!() override;

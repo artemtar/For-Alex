@@ -1,6 +1,7 @@
 #include "Dices.h"
 
 //**RandomDice**
+
 // generate random value for the Dice
 int RandomDice::getRandomFace()
 {
@@ -20,7 +21,7 @@ void Dice::roll(){face = RandomDice::getRandomFace();}
 //constructor
 RollOfDice::RollOfDice()
 {
-    dices.reserve(6);
+    dices.reserve(6);//?? probably dont need or change number
     Dice red(ScoreSheet::Color::RED);
     Dice yellow(ScoreSheet::Color::YELLOW);
     Dice blue(ScoreSheet::Color::BLUE);
@@ -59,17 +60,11 @@ ostream &operator<<(ostream &_os, const RollOfDice &set)
     }
     return _os;
 }
-string colToStr(ScoreSheet::Color c)
-{
-    return (const char *[]){
-        "Red",
-        "Yellow",
-        "Blue",
-        "Green",
-        "White",
-    }[c];
-}
 
+
+
+
+//**testingOfDices**
 // int main()
 // {
 //     //run test
