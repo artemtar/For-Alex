@@ -1,5 +1,7 @@
 #include "Dices.h"
 
+//**RandomDice**
+// generate random value for the Dice
 int RandomDice::getRandomFace()
 {
     std::uniform_int_distribution<> dis(1, 6);
@@ -7,11 +9,15 @@ int RandomDice::getRandomFace()
     std::mt19937 gen(rd());
     dis(gen);
 }
+
+//**Dice**
+//constructor
 Dice::Dice(ScoreSheet::Color col) : c(col) { roll(); }
-void Dice::roll()
-{
-    face = RandomDice::getRandomFace();
-}
+// create a dice with random face from 
+void Dice::roll(){face = RandomDice::getRandomFace();}
+
+//**RollOfDice**
+//constructor
 RollOfDice::RollOfDice()
 {
     dices.reserve(6);
@@ -22,6 +28,7 @@ RollOfDice::RollOfDice()
     dices.push_back(yellow);
     dices.push_back(blue);
 }
+//to convert to integer !!!!probably change to constructor that takes one integer
 RollOfDice::operator int()
 {
     int sum = 0;
@@ -29,14 +36,16 @@ RollOfDice::operator int()
         sum += d.face;
     return sum;
 }
+//create 3 random dices!!probably change to iterators!!
 void RollOfDice::roll()
 {
     for (Dice &d : dices)
         d.roll();
 }
-
+//!!!!no ide!!!!
 RollOfDice RollOfDice::pair(int d1, int d2) {}
 
+//** methods to print out **
 ostream &operator<<(ostream &_os, const Dice &d)
 {
     _os << colToStr(d.c) << " dice rolled :" << d.face << endl;

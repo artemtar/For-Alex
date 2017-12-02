@@ -69,7 +69,9 @@ void QwixPlayer::inputAfterRoll(RollOfDice& rd)
     }
 }
 //qwixpalyer ends
+/*
 int main()
 {
     //test
 }
+*/

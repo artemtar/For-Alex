@@ -4,26 +4,42 @@
 #define DICE
 
 #include "ScoreSheet.h"
-//
+//**RandomDice**
 struct RandomDice
 {
     static int getRandomFace();
 };
+
+//**Dice**
 struct Dice
 {
+    //data
     const ScoreSheet::Color c;
     int face;
+ 
+    //constructors
+    Dice(ScoreSheet::Color); 
+
+    //methods
     void roll();
-    Dice(ScoreSheet::Color);
+
+ 
 };
+
+//**RollOfDice**
 struct RollOfDice
 {
+    //data
     vector<Dice> dices;
-    RollOfDice(); //might use two diffrent construct if needed to work with both games
+    //constructors
+    RollOfDice(); //!!Warning!! might use two diffrent construct if needed to work with both games
+    //methods
     void roll();
     RollOfDice pair(int, int);
     operator int();
 };
+
+// printing methods
 string colToStr(ScoreSheet::Color);
 ostream &operator<<(ostream &, const RollOfDice &);
 ostream &operator<<(ostream &, const Dice &);
