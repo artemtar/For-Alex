@@ -24,6 +24,10 @@ bool ScoreSheet::operator!()
     else
         return false;
 }
+// void ScoreSheet::print(ostream &os){
+//     os << name_player;
+//     return os;
+// }
 ostream &operator<<(ostream &out, const ScoreSheet &s)
 {
     out << s.name_player;
@@ -41,7 +45,7 @@ QwintoScoreSheet::QwintoScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW>
 bool QwintoScoreSheet::validate(int index)
 {
 }
-bool QwintoScoreSheet::score(RollOfDice& rd, Color c, int pos)
+bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 {
     //more code is requered
     switch (c)
@@ -136,11 +140,6 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 //-----End of QwixScoreSheet
 
 //-----Initialization of QwixScoreSheet
-QwixScoreSheet::QwixScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW> y, QwintoRow<BLUE> b, QwintoRow<GREEN> g): ScoreSheet(n) {}
-bool QwixScoreSheet::score(RollOfDice& rd, ScoreSheet::Color c, int pos) {}
-bool QwixScoreSheet::validate(int i) {}
-int QwixScoreSheet::calcTotal() {}
-bool QwixScoreSheet::operator!() {}
 ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 {
     return qss.print(os);
@@ -164,5 +163,4 @@ ostream &QwixScoreSheet::print(ostream &out) const
 //     r.roll();
 //     parent.score(r, ScoreSheet::Color::RED, 5);
 //     cout << parent;
-
 // }
