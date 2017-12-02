@@ -34,6 +34,7 @@ class ScoreSheet
         WHITE
     };
     ScoreSheet(string s = "");
+    void addFail();
     virtual bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) = 0;
     void setTotal();
     virtual int calcTotal() = 0;

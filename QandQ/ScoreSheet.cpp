@@ -8,6 +8,14 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
         num_failed[i] = -1;
     }
 }
+void ScoreSheet::addFail(){
+    for(auto i = 0; i < 3; i++){
+         if(num_failed[i] == -1){
+             num_failed[i] = i + 1;
+             break;
+         } 
+    }
+}
 
 bool ScoreSheet::operator!()
 {
