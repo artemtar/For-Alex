@@ -7,6 +7,7 @@
 //**RandomDice**
 struct RandomDice
 {
+    //functions
     static int getRandomFace();
 };
 
@@ -20,7 +21,7 @@ struct Dice
     //constructors
     Dice(ScoreSheet::Color); 
 
-    //methods
+    //functions
     void roll();
 
  
@@ -33,7 +34,7 @@ struct RollOfDice
     vector<Dice> dices;
     //constructors
     RollOfDice(); //!!Warning!! might use two diffrent construct if needed to work with both games
-    //methods
+    //functions
     void roll();
     RollOfDice pair(int, int);
     operator int();

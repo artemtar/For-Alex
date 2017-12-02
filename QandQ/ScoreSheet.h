@@ -14,17 +14,24 @@ struct RollOfDice;
 //ostream &operator<<(ostream &, const QwintoRow<Color>&);
 //ostream &operator<<(ostream &, const QwixxRow<Color>&);
 
+//**Scoresheet**
+//Parent class for all scoresheet classes 
+//pure virtual
 class ScoreSheet
 {
+  private:
+  //data
     int overallScore;
     string name_player;
     bool ended;
-    //Give the class ScoreSheet a print function that accepts an std::ostream and
+    //!!Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
-    virtual bool validate(int) = 0;
+  //data
     int num_failed[4];
-
+  //methods
+    virtual bool validate(int) = 0;
   public:
+  //data
     enum Color
     {
         RED,
@@ -33,15 +40,24 @@ class ScoreSheet
         GREEN,
         WHITE
     };
+  //constructor
     ScoreSheet(string s = "");
-    virtual bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) = 0;
+  //functions
     void setTotal();
-    virtual int calcTotal() = 0;
-    //void setTotal();
     virtual bool operator!();
-    //call cout of children
+    //virtual functions
+    virtual bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) = 0;
+    virtual int calcTotal() = 0;
     virtual ostream& print(ostream &)const = 0;
-    friend ostream &operator<<(ostream &, const ScoreSheet &);
+    //frinds
+     friend ostream &operator<<(ostream &, const ScoreSheet &);
+
+     //to be done
+     //call cout of children
+    
+    //!!!the rest is unknown land don't go there
+    //void setTotal();
+    
 };
 #endif //SCORESHEET
 
@@ -50,14 +66,20 @@ class ScoreSheet
 template <const ScoreSheet::Color C>
 class QwintoRow
 {
+  private:
+  //data
     int row[10];
+  //functions
     bool validate(int);
-
   public:
-    QwintoRow();
-    int &operator[](int);
+  //data
     bool isFull();
     int amountNums();
+  //constructor
+    QwintoRow();
+  //functions
+    int &operator[](int);
+    //frinds
     friend ostream &operator<<(ostream &out, const QwintoRow<C> &qr)
     {
         for (auto i : qr.row)
@@ -76,13 +98,18 @@ class QwintoRow
 template <class T, const ScoreSheet::Color C>
 class QwixRow
 {
+  private:
+  //data
     int row[11];
+  //functions
     bool validate(int) override;
-
   public:
+  //data
+  //functions
     int &operator[](int);
     int &operator+=(RollOfDice &);
     bool checkAdd(int);
+    //friends
     friend ostream &operator<<(ostream &out, const QwixRow<T, C> &qr)
     {
         for (auto i : qr.row)
@@ -99,17 +126,22 @@ class QwixRow
 #define QWINTOSCORESHEET
 class QwintoScoreSheet : public ScoreSheet
 {
+  private:
+  //data
     QwintoRow<RED> red;
     QwintoRow<YELLOW> yellow;
     QwintoRow<BLUE> blue;
-
   public:
+  //data
+  //constructors
     QwintoScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
+  //functions
     bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) override;
     bool validate(int);
     int calcTotal() override;
-    bool operator!() override;
+    bool operator!() override;//!!what does it do!!
     ostream& print(ostream &) const override;
+    //friends
     friend ostream &operator<<(ostream &, const QwintoScoreSheet &);
 };
 #endif //QWINTOSCORESHEET
@@ -117,18 +149,24 @@ class QwintoScoreSheet : public ScoreSheet
 //have torevise this class before implementing
 #ifndef QWIXSCORESHEET
 #define QWIXSCORESHEET
-class QwixScoreSheet : public ScoreSheet
+class QwixScoreSheet : public ScoreSheet//!!change to struct probably?!!
 {
+    //!!! why Commented!!!
     //vector red_yellow;
     // list blue_green;
+    //!!!
 
   public:
+  //data
+  //constructor
     QwixScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>, QwintoRow<GREEN>);
+  //functions
     bool score(RollOfDice&, ScoreSheet::Color, int pos = -1) override;
     bool validate(int);
     int calcTotal() override;
     bool operator!() override;
     ostream& print(ostream &) const override;
+    //frinds
     friend ostream &operator<<(ostream &, const QwixScoreSheet &);
 };
 #endif //QWIXSCORESHEET

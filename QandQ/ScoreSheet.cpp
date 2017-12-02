@@ -3,10 +3,7 @@
 //-----initialization of parent Scoresheet
 ScoreSheet::ScoreSheet(string name) : name_player(name)
 {
-    for (int i = 0; i < 4; ++i)
-    {
-        num_failed[i] = -1;
-    }
+    for (int i = 0; i < 4; ++i){num_failed[i] = -1;}
 }
 
 bool ScoreSheet::operator!()
