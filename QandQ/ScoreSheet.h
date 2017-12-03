@@ -42,8 +42,8 @@ class ScoreSheet
     };
   //constructors
     ScoreSheet(string s = "");
-  //methods
-    virtual bool score(RollOfDice, Color, int pos = -1) = 0;
+    void addFail();
+    virtual bool score(RollOfDice, ScoreSheet::Color, int pos = -1) = 0;
     void setTotal();
     virtual int calcTotal() = 0;
     //void setTotal();//??delete

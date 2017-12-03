@@ -8,6 +8,14 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
         num_failed[i] = -1;
     }
 }
+void ScoreSheet::addFail(){
+    for(auto i = 0; i < 3; i++){
+         if(num_failed[i] == -1){
+             num_failed[i] = i + 1;
+             break;
+         } 
+    }
+}
 
 bool ScoreSheet::operator!()
 {
@@ -155,5 +163,4 @@ ostream &QwixScoreSheet::print(ostream &out) const
 //     r.roll();
 //     parent.score(r, ScoreSheet::Color::RED, 5);
 //     cout << parent;
-
 // }

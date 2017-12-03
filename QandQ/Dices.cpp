@@ -60,6 +60,16 @@ ostream &operator<<(ostream &_os, const RollOfDice &set)
     }
     return _os;
 }
+string colToStr(ScoreSheet::Color c)
+{
+    return (const char *[]){
+        "Red",
+        "Yellow",
+        "Blue",
+        "Green",
+        "White",
+    }[c];
+}
 
 
 
