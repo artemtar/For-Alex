@@ -1,7 +1,11 @@
 #include "ScoreSheet.h"
 
 //-----initialization of parent Scoresheet
+
+//**ScoreSheet**
+//constructor
 ScoreSheet::ScoreSheet(string name) : name_player(name)
+
 {
     for (int i = 0; i < 4; ++i)
     {
@@ -17,6 +21,8 @@ void ScoreSheet::addFail(){
     }
 }
 
+
+//what is it doing
 bool ScoreSheet::operator!()
 {
     if (num_failed[3] == 4)
@@ -24,10 +30,15 @@ bool ScoreSheet::operator!()
     else
         return false;
 }
+
+//**why commented out**
 // void ScoreSheet::print(ostream &os){
 //     os << name_player;
 //     return os;
 // }
+//**
+
+//to printout scoresheet
 ostream &operator<<(ostream &out, const ScoreSheet &s)
 {
     out << s.name_player;
@@ -40,11 +51,12 @@ ostream &operator<<(ostream &out, const ScoreSheet &s)
 }
 //-----End of Scoresheet
 
-//-----Initialization of QwintoScoresheet
+// constructor
 QwintoScoreSheet::QwintoScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW> y, QwintoRow<BLUE> b) : ScoreSheet(n), red(r), yellow(y), blue(b) {}
-bool QwintoScoreSheet::validate(int index)
-{
-}
+
+// !!!!does nothing!!!!
+bool QwintoScoreSheet::validate(int index){}
+//
 bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 {
     //more code is requered
