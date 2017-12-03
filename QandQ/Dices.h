@@ -42,6 +42,8 @@ struct RollOfDice
 
     void roll();
     RollOfDice pair(int, int);
+
+    operator int();
     
 };
 // printing methods

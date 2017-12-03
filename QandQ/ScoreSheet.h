@@ -45,7 +45,10 @@ class ScoreSheet
 
   //constructor
     ScoreSheet(string s = "");
-  //functions
+
+    void addFail();
+    virtual bool score(RollOfDice, ScoreSheet::Color, int pos = -1) = 0;
+
     void setTotal();
     virtual bool operator!();
     //virtual functions

@@ -43,15 +43,15 @@ public:
 #ifndef QWIXPLAYER
 #define QWIXPLAYER
 
-class QwixPlayer : public Player
-{
-  QwixScoreSheet sheet;
+// class QwixPlayer : public Player
+// {
+//   //QwixScoreSheet sheet;// comile coimplain
 
-public:
-  ScoreSheet::Color choseColor() override;
-  QwixPlayer(QwixScoreSheet &, string _name);
-  virtual void inputBeforeRoll(RollOfDice &) override;
-  virtual void inputAfterRoll(RollOfDice &) override;
-};
+// public:
+//   ScoreSheet::Color choseColor() override;
+//   //QwixPlayer(QwixScoreSheet &, string _name); // compile complain
+//   virtual void inputBeforeRoll(RollOfDice &) override;
+//   virtual void inputAfterRoll(RollOfDice &) override;
+// };
 
 #endif //QWIXPLAYER
