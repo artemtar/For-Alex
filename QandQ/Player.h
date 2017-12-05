@@ -7,13 +7,11 @@ class Player
 protected:
   string name;
   bool status = false;
-  //ScoreSheet board;
+  ScoreSheet* sheet;
 
 public:
   //constructor//need a virtual destructor!!!!!!!!
-  Player(const string &_name = "");
-
-
+  Player(ScoreSheet*, const string &_name = "");
   virtual ScoreSheet::Color choseColor() = 0;
   //set players status
 
@@ -21,12 +19,11 @@ public:
   inline void setStatusInactuve(){status = false;}
   virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
-
   virtual void inputBeforeRoll(RollOfDice &) = 0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
-  friend istream &operator>>(istream &, Player &);
+  //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
   friend ostream &operator<<(ostream &, const Player &);
-
+  
 };
 
 #endif //PLAYER
@@ -36,14 +33,10 @@ public:
 
 class QwintoPlayer : public Player
 {
-private:
-  //data
-  QwintoScoreSheet sheet;
-
 public:
   //constructors
-    QwintoPlayer(QwintoScoreSheet &, string _name);
-    QwintoPlayer(const QwintoPlayer &from);
+    QwintoPlayer(QwintoScoreSheet&, string _name);
+    //QwintoPlayer(const QwintoPlayer &from);
   //functions
     ScoreSheet::Color choseColor() override;
     //virtual
@@ -58,7 +51,6 @@ public:
 
 // class QwixPlayer : public Player
 // {
-//   //QwixScoreSheet sheet;// comile coimplain
 
 // public:
 //   ScoreSheet::Color choseColor() override;

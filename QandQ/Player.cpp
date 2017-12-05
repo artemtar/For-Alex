@@ -1,12 +1,10 @@
 #include "Player.h"
 
 
-Player::Player(const string &_name) : name{_name}{}
+Player::Player(ScoreSheet* s, const string &_name) : sheet{s}, name{_name} {}
 
 
 int Player::inputChecker(int boundA, int boundB){
-
-
     int choice = -1;        
         while (42)
     {
@@ -20,6 +18,10 @@ int Player::inputChecker(int boundA, int boundB){
         else cout << "Invalid input. Try again: ";
     }
     return choice;
+}
+ostream &operator<<(ostream &os, const Player &p)
+{
+    return os << *(p.sheet);
 }
 //initilizing qiwinto player
 ScoreSheet::Color QwintoPlayer::choseColor()
@@ -40,8 +42,8 @@ ScoreSheet::Color QwintoPlayer::choseColor()
     return c;
 }
 
-QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(_name), sheet{qs} {}
-QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//: Player(""){}
+QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(&qs, _name){}
+//QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//not needed anymore?
 //some stuff to do before input
 void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
 {
@@ -70,14 +72,14 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
         cout << "Position: " << endl;
         int pos = inputChecker(1, 10);
         //here should be try and catch if was not able to add into row
-        sheet.score(rd, c, pos);
+        sheet->score(rd, c, pos);
     }
     break;
 
         //payer is using fail field
     case 2:
     {
-        sheet.addFail();
+        sheet->addFail();
     }
     break;
     }
