@@ -1,20 +1,22 @@
-#include "Player.h"
+#include "Dices.h"
 #include "ScoreSheet.h"
+#include "Player.h"
 
-// int main(){
-//     //test only
-//     // RollOfDice rd();
-//     // QwintoRow <ScoreSheet::RED>r();
-//     // QwintoRow <ScoreSheet::YELLOW>y();
-//     // QwintoRow <ScoreSheet::BLUE>b();
-//     // string name = "Artem";
-//     // QwintoScoreSheet artemBoard(name, r, y, b) ;
 
-//         QwintoRow<ScoreSheet::Color::RED> qr;
-//     QwintoRow<ScoreSheet::Color::YELLOW> qy;
-//     QwintoRow<ScoreSheet::Color::BLUE> qb;
-//     RollOfDice r();
-//   //  cout << r << "roled" << endl;
-//     //qr[2] = r;
-//     QwintoScoreSheet qs("Artem", qr, qy, qb);
-// }
+int main(){
+    //test only
+    RollOfDice rd;
+    QwintoRow <ScoreSheet::RED>r;
+    QwintoRow <ScoreSheet::YELLOW>y;
+    QwintoRow <ScoreSheet::BLUE>b;
+    QwintoScoreSheet artemBoard("Artem", r, y, b);
+    QwintoPlayer artem (artemBoard, "Artem");
+    Player& p = artem;
+    p.setStatusActive();
+    p.inputBeforeRoll(rd);
+
+
+
+    
+
+}

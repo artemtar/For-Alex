@@ -15,6 +15,7 @@ public:
   //set players status
   inline void setStatusActive(){status = true;}
   inline void setStatusInactuve(){status = false;}
+  virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
   virtual void inputBeforeRoll(RollOfDice &) = 0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
