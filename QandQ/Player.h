@@ -12,6 +12,7 @@ protected:
 public:
   Player(const string &_name = "");
   virtual ScoreSheet::Color choseColor() = 0;
+  //set players status
   inline void setStatusActive();
   inline void setStatusInactuve();
   virtual inline bool getStatus();

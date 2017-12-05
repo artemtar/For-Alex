@@ -25,7 +25,7 @@ struct Dice
     void roll(); 
 };
 
-//**RollOfDice**
+//Alex doesit
 struct RollOfDice
 {
     //data

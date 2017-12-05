@@ -10,7 +10,7 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
         num_failed[i] = -1;
     }
 }
-//addFail???
+//to add fail into num_fail
 void ScoreSheet::addFail(){
     for(auto i = 0; i < 3; i++){
          if(num_failed[i] == -1){
@@ -19,7 +19,7 @@ void ScoreSheet::addFail(){
          } 
     }
 }
-//??
+//if fails is 4, stop the game
 bool ScoreSheet::operator!()
 {
     if (num_failed[3] == 4)
@@ -52,7 +52,6 @@ ostream &operator<<(ostream &out, const ScoreSheet &s)
 //constructor
 QwintoScoreSheet::QwintoScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW> y, QwintoRow<BLUE> b) : ScoreSheet(n), red(r), yellow(y), blue(b) {}
 
-//??
 bool QwintoScoreSheet::validate(int index){}
 //to return the score
 bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
@@ -111,8 +110,7 @@ int QwintoScoreSheet::calcTotal()
 
     return rowsTotal + colTotal - 5 * fails;
 }
-
-//what??
+//have to be polimorphic
 bool QwintoScoreSheet::operator!()
 {
     ScoreSheet &parent = *this;
@@ -125,14 +123,12 @@ bool QwintoScoreSheet::operator!()
     else
         return true;
 }
-
-
 //to put on the stream
 ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
 {
     return qss.print(os);
 }
-//to print out//?? difference between previous
+//chenge design
 ostream &QwintoScoreSheet::print(ostream &out) const
 {
 

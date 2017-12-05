@@ -21,7 +21,7 @@ void Dice::roll(){face = RandomDice::getRandomFace();}
 //constructor
 RollOfDice::RollOfDice()
 {
-    dices.reserve(6);//?? probably dont need or change number
+    dices.reserve(6);//different size for qwix and qwinto
     Dice red(ScoreSheet::Color::RED);
     Dice yellow(ScoreSheet::Color::YELLOW);
     Dice blue(ScoreSheet::Color::BLUE);
@@ -43,7 +43,7 @@ void RollOfDice::roll()
     for (Dice &d : dices)
         d.roll();
 }
-//!!!!no ide!!!!
+//qwixx staff
 RollOfDice RollOfDice::pair(int d1, int d2) {}
 
 //** methods to print out **
