@@ -8,7 +8,8 @@
 //using namespace std;
 
 int main(){
-   std:string gameVersion;
+//    std:string gameVersion;
+
 
    //get version of the game
    std::cout<<" Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
@@ -55,29 +56,31 @@ int main(){
            
         }
         //if wrong print all available colours
+
         
-        //for all the players
-            //if player can put it in his scoresheet
-                std::cout<<" Do you want to use the score of this dices rolled?";
-                //if yes
-                    std::cout<<" What is the row that you want to put your score into?";
-                    //if can
-                        //if filled two rows
-                           //game over
-                           break;
-            //else
-                //if current player cannot put sccore in his board
-                   //-5points from the final score of the player
-                   // number of failed throws ++ //for this player??
-                   // if failed Throws==4
-                       //game over
-                       break;
+//         //for all the players
+//             //if player can put it in his scoresheet
+//                 std::cout<<" Do you want to use the score of this dices rolled?";
+//                 //if yes
+//                     std::cout<<" What is the row that you want to put your score into?";
+//                     //if can
+//                         //if filled two rows
+//                            //game over
+//                            break;
+//             //else
+//                 //if current player cannot put sccore in his board
+//                    //-5points from the final score of the player
+//                    // number of failed throws ++ //for this player??
+//                    // if failed Throws==4
+//                        //game over
+//                        break;
                
                    
           
-    }
+//     }
     //game over calculate the score
        //get the right score of the completed one
+
 
 
 
@@ -85,10 +88,11 @@ int main(){
     //test only
     RollOfDice rd;
 
+
     QwintoScoreSheet artemBoard("Artem");
     QwintoPlayer artem (artemBoard, "Artem");
     Player& p = artem;
     p.setStatusActive();
     p.inputBeforeRoll(rd);
-    //cout<<p;
+
 }
