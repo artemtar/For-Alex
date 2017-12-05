@@ -3,7 +3,7 @@
 Player::Player(const string &_name) : name{_name}
 {
 }
-
+//go into header
 inline void Player::setStatusActive()
 {
     status = true;
@@ -25,7 +25,7 @@ ScoreSheet::Color QwintoPlayer::choseColor()
     cout << "1. Red" << endl;
     cout << "2. Yellow" << endl;
     cout << "3. Blue" << endl;
-    ScoreSheet::Color c = ScoreSheet::Color::WHITE;
+    ScoreSheet::Color c = ScoreSheet::Color::WHITE;//default color for now
     while (c == ScoreSheet::Color::WHITE)
     {
         cout << "intput: ";

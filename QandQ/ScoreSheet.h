@@ -10,10 +10,6 @@ using namespace std;
 
 struct Dice;
 struct RollOfDice;
-
-//ostream &operator<<(ostream &, const QwintoRow<Color>&);
-//ostream &operator<<(ostream &, const QwixxRow<Color>&);
-
 class ScoreSheet
 {
     
@@ -49,13 +45,9 @@ class ScoreSheet
     friend ostream &operator<<(ostream &, const ScoreSheet &);
     //virtual
     virtual bool score(RollOfDice, ScoreSheet::Color, int pos = -1) = 0;
+     //void setTotal();
     virtual ostream& print(ostream &)const = 0;
-    virtual int calcTotal() = 0;
-    
-    //strange land don't go there
-    //void setTotal();//??delete
-    //call cout of children//??delete
-    
+    virtual int calcTotal() = 0;    
    
 };
 #endif //SCORESHEET
@@ -79,8 +71,7 @@ class QwintoRow
     int &operator[](int);
     bool isFull();
     int amountNums();
-    //weird land
-    friend ostream &operator<<(ostream &out, const QwintoRow<C> &qr)//why implemented here??
+    friend ostream &operator<<(ostream &out, const QwintoRow<C> &qr)
     {
         for (auto i : qr.row)
         {
@@ -110,7 +101,6 @@ class QwixRow
     int &operator[](int);
     int &operator+=(RollOfDice &);
     bool checkAdd(int);
-    //why here??
     friend ostream &operator<<(ostream &out, const QwixRow<T, C> &qr)
     {
         for (auto i : qr.row)
@@ -155,7 +145,7 @@ class QwixScoreSheet : public ScoreSheet
     //not used  now
 
     //vector red_yellow;
-    // list blue_green;
+    //list blue_green;
 
   public:
   //constructors

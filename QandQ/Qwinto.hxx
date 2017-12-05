@@ -1,8 +1,3 @@
-//class ScoreSheet;
-//implementing Qwinto board
-
-// #ifndef QWINTOROW
-// #define QWINTOROW
 static int DEFAULT_ELEMENT = -1;
 template <const ScoreSheet::Color C>
 QwintoRow<C>::QwintoRow()
