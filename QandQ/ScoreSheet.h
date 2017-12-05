@@ -60,16 +60,11 @@ template <const ScoreSheet::Color C>
 class QwintoRow 
 {
   private:
-  //data
     int row[10];
-  //functions
     bool validate(int);
 
   public:
-  //data
-  //constructors
-    QwintoRow();
-  //functions
+  QwintoRow();
     int &operator[](int);
     bool isFull();
     int amountNums();
