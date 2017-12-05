@@ -1,21 +1,11 @@
 #include "Player.h"
 
-Player::Player(const string &_name) : name{_name}
-{
-}
-//go into header
-inline void Player::setStatusActive()
-{
-    status = true;
-}
-inline void Player::setStatusInactuve()
-{
-    status = false;
-}
-inline bool Player::getStatus()
-{
-    return status;
-}
+Player::Player(const string &_name) : name{_name}{}
+
+//moved to the header
+//inline void Player::setStatusActive(){}
+//inline void Player::setStatusInactuve(){}
+//inline bool Player::getStatus(){}
 
 //initilizing qiwinto player
 
@@ -36,6 +26,7 @@ ScoreSheet::Color QwintoPlayer::choseColor()
 }
 
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(_name), sheet{qs} {}
+QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//: Player(""){}
 //some stuff to do before input
 void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
 {
