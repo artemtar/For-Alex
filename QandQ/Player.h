@@ -13,9 +13,9 @@ public:
   Player(const string &_name = "");
   virtual ScoreSheet::Color choseColor() = 0;
   //set players status
-  inline void setStatusActive();
-  inline void setStatusInactuve();
-  virtual inline bool getStatus();
+  inline void setStatusActive(){status = true;}
+  inline void setStatusInactuve(){status = false;}
+  virtual inline bool getStatus(){return status;}
   virtual void inputBeforeRoll(RollOfDice &) = 0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
   friend istream &operator>>(istream &, Player &);
