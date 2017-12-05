@@ -111,8 +111,9 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 //     }
 // }
 //qwixpalyer ends
-
+/*
 int main()
 {
     //test
 }
+*/

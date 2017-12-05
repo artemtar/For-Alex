@@ -1,6 +1,8 @@
 #include "ScoreSheet.h"
 
-//-----initialization of parent Scoresheet
+//**ScoreSheet**
+
+//constructor
 ScoreSheet::ScoreSheet(string name) : name_player(name)
 {
     for (int i = 0; i < 4; ++i)
@@ -8,6 +10,7 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
         num_failed[i] = -1;
     }
 }
+//addFail???
 void ScoreSheet::addFail(){
     for(auto i = 0; i < 3; i++){
          if(num_failed[i] == -1){
@@ -16,7 +19,7 @@ void ScoreSheet::addFail(){
          } 
     }
 }
-
+//??
 bool ScoreSheet::operator!()
 {
     if (num_failed[3] == 4)
@@ -24,10 +27,15 @@ bool ScoreSheet::operator!()
     else
         return false;
 }
+
+//not used dnow
+
 // void ScoreSheet::print(ostream &os){
 //     os << name_player;
 //     return os;
 // }
+
+//to print out ScoreSheet
 ostream &operator<<(ostream &out, const ScoreSheet &s)
 {
     out << s.name_player;
@@ -41,10 +49,12 @@ ostream &operator<<(ostream &out, const ScoreSheet &s)
 //-----End of Scoresheet
 
 //-----Initialization of QwintoScoresheet
+//constructor
 QwintoScoreSheet::QwintoScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW> y, QwintoRow<BLUE> b) : ScoreSheet(n), red(r), yellow(y), blue(b) {}
-bool QwintoScoreSheet::validate(int index)
-{
-}
+
+//??
+bool QwintoScoreSheet::validate(int index){}
+//to return the score
 bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 {
     //more code is requered
@@ -61,6 +71,8 @@ bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
         break;
     }
 }
+
+//get the toral
 int QwintoScoreSheet::calcTotal()
 {
     //calculating rows
@@ -99,6 +111,8 @@ int QwintoScoreSheet::calcTotal()
 
     return rowsTotal + colTotal - 5 * fails;
 }
+
+//what??
 bool QwintoScoreSheet::operator!()
 {
     ScoreSheet &parent = *this;
@@ -112,10 +126,13 @@ bool QwintoScoreSheet::operator!()
         return true;
 }
 
+
+//to put on the stream
 ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
 {
     return qss.print(os);
 }
+//to print out//?? difference between previous
 ostream &QwintoScoreSheet::print(ostream &out) const
 {
 
@@ -140,10 +157,14 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 //-----End of QwixScoreSheet
 
 //-----Initialization of QwixScoreSheet
+
+//to put on the stream
 ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 {
     return qss.print(os);
 }
+
+//to print// ?difference between previous??
 ostream &QwixScoreSheet::print(ostream &out) const
 {
 }
