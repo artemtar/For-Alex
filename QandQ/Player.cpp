@@ -1,10 +1,11 @@
 #include "Player.h"
 
-Player::Player(const string &_name) : name{_name}
-{
-}
-//checks input according to boundaries and if it is integer
+
+Player::Player(const string &_name) : name{_name}{}
+
+
 int Player::inputChecker(int boundA, int boundB){
+
 
     int choice = -1;        
         while (42)
@@ -40,6 +41,7 @@ ScoreSheet::Color QwintoPlayer::choseColor()
 }
 
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(_name), sheet{qs} {}
+QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//: Player(""){}
 //some stuff to do before input
 void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
 {
