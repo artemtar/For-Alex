@@ -4,21 +4,26 @@
 
 class Player
 {
-  protected:
-    string name;
-    bool status = false;
-    //ScoreSheet board;
+protected:
+  string name;
+  bool status = false;
+  ScoreSheet* sheet;
 
-  public:
-    Player(const string &_name = "");
-    inline void setStatusActive();
-    inline void setStatusInactuve();
-    virtual inline bool getStatus();
-    //void setScore(ScoreSheet& s);
-    virtual void inputBeforeRoll(RollOfDice &) = 0;
-    virtual void inputAfterRoll(RollOfDice &) = 0;
-    friend istream &operator>>(istream &, Player &);
-    friend ostream &operator<<(ostream &, const Player &);
+public:
+  //constructor//need a virtual destructor!!!!!!!!
+  Player(ScoreSheet*, const string &_name = "");
+  virtual ScoreSheet::Color choseColor() = 0;
+  //set players status
+
+  inline void setStatusActive(){status = true;}
+  inline void setStatusInactuve(){status = false;}
+  virtual int inputChecker(int, int);
+  virtual inline bool getStatus(){return status;}
+  virtual void inputBeforeRoll(RollOfDice &) = 0;
+  virtual void inputAfterRoll(RollOfDice &) = 0;
+  //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
+  friend ostream &operator<<(ostream &, const Player &);
+  
 };
 
 #endif //PLAYER
@@ -28,10 +33,13 @@ class Player
 
 class QwintoPlayer : public Player
 {
-    QwintoScoreSheet sheet;
-
-  public:
-    QwintoPlayer(QwintoScoreSheet &, string _name);
+public:
+  //constructors
+    QwintoPlayer(QwintoScoreSheet&, string _name);
+    //QwintoPlayer(const QwintoPlayer &from);
+  //functions
+    ScoreSheet::Color choseColor() override;
+    //virtual
     virtual void inputBeforeRoll(RollOfDice &) override;
     virtual void inputAfterRoll(RollOfDice &) override;
 };
@@ -41,14 +49,14 @@ class QwintoPlayer : public Player
 #ifndef QWIXPLAYER
 #define QWIXPLAYER
 
-class QwixPlayer : public Player
-{
-    QwixScoreSheet sheet;
+// class QwixPlayer : public Player
+// {
 
-  public:
-    QwixPlayer(QwixScoreSheet &, string _name);
-    virtual void inputBeforeRoll(RollOfDice &) override;
-    virtual void inputAfterRoll(RollOfDice &) override;
-};
+// public:
+//   ScoreSheet::Color choseColor() override;
+//   //QwixPlayer(QwixScoreSheet &, string _name); // compile complain
+//   virtual void inputBeforeRoll(RollOfDice &) override;
+//   virtual void inputAfterRoll(RollOfDice &) override;
+// };
 
 #endif //QWIXPLAYER

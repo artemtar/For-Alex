@@ -1,14 +1,33 @@
 #include "ScoreSheet.h"
 
-//-----initialization of parent Scoresheet
+//**ScoreSheet**
+
+//constructor
 ScoreSheet::ScoreSheet(string name) : name_player(name)
 {
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; ++i)//don't like it!!
     {
         num_failed[i] = -1;
     }
 }
+ScoreSheet::ScoreSheet(const ScoreSheet& from):name_player(from.name_player),overallScore(from.overallScore),ended(from.ended){
 
+   for (int i = 0; i < 4; ++i)//don't like it
+    {
+        num_failed[i] = from.num_failed[i];
+    }
+}
+
+//to add fail into num_fail
+void ScoreSheet::addFail(){
+    for(auto i = 0; i < 3; i++){
+         if(num_failed[i] == -1){
+             num_failed[i] = i + 1;
+             break;
+         } 
+    }
+}
+//if fails is 4, stop the game
 bool ScoreSheet::operator!()
 {
     if (num_failed[3] == 4)
@@ -16,10 +35,15 @@ bool ScoreSheet::operator!()
     else
         return false;
 }
+
+//not used dnow
+
 // void ScoreSheet::print(ostream &os){
 //     os << name_player;
 //     return os;
 // }
+
+//to print out ScoreSheet
 ostream &operator<<(ostream &out, const ScoreSheet &s)
 {
     out << s.name_player;
@@ -33,10 +57,13 @@ ostream &operator<<(ostream &out, const ScoreSheet &s)
 //-----End of Scoresheet
 
 //-----Initialization of QwintoScoresheet
-QwintoScoreSheet::QwintoScoreSheet(string n, QwintoRow<RED> r, QwintoRow<YELLOW> y, QwintoRow<BLUE> b) : ScoreSheet(n), red(r), yellow(y), blue(b) {}
-bool QwintoScoreSheet::validate(int index)
-{
-}
+//constructor
+QwintoScoreSheet::QwintoScoreSheet(string name)
+            : ScoreSheet(name), red( QwintoRow<RED>{}), yellow(QwintoRow<YELLOW>{}), blue( QwintoRow<BLUE>{}) {}// Aleks moved row to be created inside initializetion list
+QwintoScoreSheet::QwintoScoreSheet(const QwintoScoreSheet &from):ScoreSheet(),red(from.red),yellow(from.yellow),blue(from.blue){}//need to give a name
+
+bool QwintoScoreSheet::validate(int index){}
+//to return the score
 bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 {
     //more code is requered
@@ -53,6 +80,8 @@ bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
         break;
     }
 }
+
+//get the toral
 int QwintoScoreSheet::calcTotal()
 {
     //calculating rows
@@ -91,6 +120,7 @@ int QwintoScoreSheet::calcTotal()
 
     return rowsTotal + colTotal - 5 * fails;
 }
+//have to be polimorphic
 bool QwintoScoreSheet::operator!()
 {
     ScoreSheet &parent = *this;
@@ -103,11 +133,12 @@ bool QwintoScoreSheet::operator!()
     else
         return true;
 }
-
+//to put on the stream
 ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
 {
     return qss.print(os);
 }
+//chenge design
 ostream &QwintoScoreSheet::print(ostream &out) const
 {
 
@@ -132,10 +163,14 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 //-----End of QwixScoreSheet
 
 //-----Initialization of QwixScoreSheet
+
+//to put on the stream
 ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 {
     return qss.print(os);
 }
+
+//
 ostream &QwixScoreSheet::print(ostream &out) const
 {
 }
@@ -155,5 +190,4 @@ ostream &QwixScoreSheet::print(ostream &out) const
 //     r.roll();
 //     parent.score(r, ScoreSheet::Color::RED, 5);
 //     cout << parent;
-
 // }

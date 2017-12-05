@@ -1,7 +1,8 @@
 #include "Dices.h"
 
 //**RandomDice**
-//methods
+
+// generate random value for the Dice
 int RandomDice::getRandomFace()
 {
     std::uniform_int_distribution<> dis(1, 6);
@@ -11,21 +12,16 @@ int RandomDice::getRandomFace()
 }
 
 //**Dice**
-//constructors
+//constructor
 Dice::Dice(ScoreSheet::Color col) : c(col) { roll(); }
-//methods
-void Dice::roll()
-{
-    face = RandomDice::getRandomFace();
-}
+// create a dice with random face from 
+void Dice::roll(){face = RandomDice::getRandomFace();}
 
-
-
-//**RollOfdice**
-//constructors
+//**RollOfDice**
+//constructor
 RollOfDice::RollOfDice()
 {
-    dices.reserve(6);//?? probably dont need or change number
+    dices.reserve(6);//different size for qwix and qwinto
     Dice red(ScoreSheet::Color::RED);
     Dice yellow(ScoreSheet::Color::YELLOW);
     Dice blue(ScoreSheet::Color::BLUE);
@@ -33,35 +29,24 @@ RollOfDice::RollOfDice()
     dices.push_back(yellow);
     dices.push_back(blue);
 }
-//methods
-RollOfDice::operator int()//can be changed to one parameter constructor
+//to convert to integer !!!!probably change to constructor that takes one integer
+RollOfDice::operator int()
 {
     int sum = 0;
     for (const Dice &d : dices)
         sum += d.face;
     return sum;
 }
-void RollOfDice::roll()//had something with iterators
+//create 3 random dices!!probably change to iterators!!
+void RollOfDice::roll()
 {
     for (Dice &d : dices)
         d.roll();
 }
-RollOfDice RollOfDice::pair(int d1, int d2) {}//????
+//qwixx staff
+RollOfDice RollOfDice::pair(int d1, int d2) {}
 
-
-//to format  color to string
-string colToStr(ScoreSheet::Color c)
-{
-    return (const char *[]){
-        "Red",
-        "Yellow",
-        "Blue",
-        "Green",
-        "White",
-    }[c];
-}
-
-//for ostream for Dice and RollOfDices//change
+//** methods to print out **
 ostream &operator<<(ostream &_os, const Dice &d)
 {
     _os << colToStr(d.c) << " dice rolled :" << d.face << endl;
@@ -74,6 +59,16 @@ ostream &operator<<(ostream &_os, const RollOfDice &set)
         _os << d;
     }
     return _os;
+}
+string colToStr(ScoreSheet::Color c)
+{
+    return (const char *[]){
+        "Red",
+        "Yellow",
+        "Blue",
+        "Green",
+        "White",
+    }[c];
 }
 
 
