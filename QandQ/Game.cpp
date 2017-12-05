@@ -10,7 +10,7 @@
 int main(){
    std:string gameVersion;
 
-   //get version
+   //get version of the game
    std::cout<<" Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
    std::cin>>gameVersion;  
 
@@ -18,28 +18,42 @@ int main(){
    int numOfPlayers;
    std::cout<<" Please input the number of player that you want to have : ";
    std::cin>>numOfPlayers;  
-   std::vector<Player> players;  
+   
+   std::vector<Player*> players; //to keep the players
     
    //create all required players and 
    for (int i = 0;i<numOfPlayers;i++){
-       std::string currentName; 
+       std::string tempName; 
        std::cout<<"What is the name of the player "<<i+1<<" : ";
-       std::cin>> currentName;
-       QwintoScoreSheet currentScoreSheet{currentName};
-       QwintoPlayer currentPlayer{currentScoreSheet,currentName};
+       std::cin>> tempName;
+       QwintoScoreSheet tempScoreSheet{tempName};
+       QwintoPlayer tempPlayer{tempScoreSheet,tempName};
 
-      // players.push_back(currentPlayer);  //need to add to the vector//copy constructors????
+       players.push_back(&tempPlayer);//copy constructors called here
 
-       std::cout<<"\n Player "<<i+1<<" with name : "<< currentName <<" is created.";
+       std::cout<<"\n Player "<<i+1<<" with name : "<< tempName <<" is created.";
    }
   
-
+    RollOfDice currentRoll{};
+    
     while(true){
+         
 
-        std::cout<<"Please input the number of dices do you want to roll as a number?";
-        //ask if the player wants to roll 1,2 or 3 dices
+        vector<Player*>::iterator currentPlayer = players.begin();
         
-        std::cout<<"What is the colour of the dices you want to roll?";
+
+        std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3)";
+        //ask if the player wants to roll 1,2 or 3 dices
+        int currentRollNumOfDices;
+        std::cin>>currentRollNumOfDices;
+        
+
+        for (int i=0;i<currentRollNumOfDices;i++){
+            std::cout<<"What is the colour of the dice number "<<i+1<<" that you want to roll?";
+            
+            (*currentPlayer)->inputBeforeRoll(currentRoll);
+           
+        }
         //if wrong print all available colours
         
         //for all the players
@@ -67,15 +81,14 @@ int main(){
 
 
 
-// int main(){
-//     //test only
-//     RollOfDice rd;
-//     QwintoRow <ScoreSheet::RED>r;
-//     QwintoRow <ScoreSheet::YELLOW>y;
-//     QwintoRow <ScoreSheet::BLUE>b;
-//     QwintoScoreSheet artemBoard("Artem", r, y, b);
-//     QwintoPlayer artem (artemBoard, "Artem");
-//     Player& p = artem;
-//     p.setStatusActive();
-//     p.inputBeforeRoll(rd);
+
+    //test only
+    RollOfDice rd;
+
+    QwintoScoreSheet artemBoard("Artem");
+    QwintoPlayer artem (artemBoard, "Artem");
+    Player& p = artem;
+    p.setStatusActive();
+    p.inputBeforeRoll(rd);
+    //cout<<p;
 }

@@ -12,6 +12,7 @@ protected:
 public:
   //constructor//need a virtual destructor!!!!!!!!
   Player(const string &_name = "");
+  virtual ~Player();
 
 
   virtual ScoreSheet::Color choseColor() = 0;

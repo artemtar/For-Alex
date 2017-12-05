@@ -2,6 +2,7 @@
 
 
 Player::Player(const string &_name) : name{_name}{}
+Player::~Player(){}
 
 
 int Player::inputChecker(int boundA, int boundB){
