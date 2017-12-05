@@ -3,89 +3,71 @@
 Player::Player(const string &_name) : name{_name}
 {
 }
-//initilizing qiwinto player
+//checks input according to boundaries and if it is integer
+int Player::inputChecker(int boundA, int boundB){
 
+    int choice = -1;        
+        while (42)
+    {
+        while (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again: ";
+        }
+        if (!(choice < boundA) && !(choice > boundB)) break;
+        else cout << "Invalid input. Try again: ";
+    }
+    return choice;
+}
+//initilizing qiwinto player
 ScoreSheet::Color QwintoPlayer::choseColor()
 {
     cout << "Hey man, chose da cala:" << endl;
     cout << "1. Red" << endl;
     cout << "2. Yellow" << endl;
     cout << "3. Blue" << endl;
-    ScoreSheet::Color c; 
-    int choiceOfC = -1;
-    while (choiceOfC < 1 && choiceOfC > 3)
-    {
-        bool flag = false;
-        if (flag)
-        {
-            cout << "Incorrect input!" << endl; //just output for player to say that he is stupid
-        }
-        try
-        {
-            cout << "intput: ";
-            cin >> choiceOfC;
-        }
-        catch (...)
-        {
-            cerr << "Incorrect input" << endl;
-        }
-        flag = true;
-    }
-    if (choiceOfC == 1) c = ScoreSheet::Color::RED;
-    if (choiceOfC == 2) c = ScoreSheet::Color::YELLOW;
-    if (choiceOfC == 3) c = ScoreSheet::Color::BLUE;
+    cout << "Input: ";
+    ScoreSheet::Color c;
+    int choiceOfC = inputChecker(1, 3);
+    if (choiceOfC == 1)
+        c = ScoreSheet::Color::RED;
+    if (choiceOfC == 2)
+        c = ScoreSheet::Color::YELLOW;
+    if (choiceOfC == 3)
+        c = ScoreSheet::Color::BLUE;
+    return c;
 }
 
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(_name), sheet{qs} {}
 //some stuff to do before input
 void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
 {
-    int choice = -1;
+ int choice = -1;   
     if (getStatus())
     {
 
         rd.roll();
         ScoreSheet::Color c = choseColor();
-        cout << "input or fail" << endl;
-        while (choice == -1)
-        {
-            cout << "1. Input" << endl;
-            cout << "2. Or using fail field" << endl;
-            cout << "intput: ";
-            try
-            {
-                cin >> choice;
-            }
-            catch (...)
-            {
-                cerr << "Incorrect input" << endl;
-            }
-        }
+        cout << "Chose if you want to input score in a row or use fail field" << endl;
+        cout << "1. Input" << endl;
+        cout << "2. Fail" << endl; 
+        choice = inputChecker(1, 2);
     }
     else
+    //nonactive player
     {
     }
     switch (choice)
     {
-        //case where player chose positon on the board
+        //case where player chose position on the board
     case 1:
     {
         cout << "Chose color and position" << endl;
         ScoreSheet::Color c = choseColor();
         cout << "Position: " << endl;
-        int pos = -1;
-        while (pos == -1)
-        // rest checking is done inside row class
-        {
-            try
-            {
-                cin >> pos;
-            }
-            catch (...)
-            {
-                cerr << "Incorrect input" << endl;
-            }
-        }
+        int pos = inputChecker(1, 10);
+        //here should be try and catch if was not able to add into row
         sheet.score(rd, c, pos);
     }
     break;
@@ -93,9 +75,9 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
         //payer is using fail field
     case 2:
     {
-        sheet.addFail();       
+        sheet.addFail();
     }
-     break;
+    break;
     }
 
     //or he can chose to use fail field
@@ -134,19 +116,19 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 // }
 //qwixpalyer ends
 
-int main()
-{
-    QwintoRow<ScoreSheet::Color::RED> qr;
-    QwintoRow<ScoreSheet::Color::YELLOW> qy;
-    QwintoRow<ScoreSheet::Color::BLUE> qb;
-    RollOfDice r;
-    cout << r << "roled" << endl;
-    qr[2] = r;
-    QwintoScoreSheet qs("Artem", qr, qy, qb);
-    ScoreSheet &parent = qs;
-    cout << parent;
-    r.roll();
-    parent.score(r, ScoreSheet::Color::RED, 5);
-    cout << parent;
-   // QwintoPlayer Artem("Artem", qr, qy, qb);
-}
+// int main()
+// {
+//     QwintoRow<ScoreSheet::Color::RED> qr;
+//     QwintoRow<ScoreSheet::Color::YELLOW> qy;
+//     QwintoRow<ScoreSheet::Color::BLUE> qb;
+//     RollOfDice r;
+//     cout << r << "roled" << endl;
+//     qr[2] = r;
+//     QwintoScoreSheet qs("Artem", qr, qy, qb);
+//     ScoreSheet &parent = qs;
+//     cout << parent;
+//     r.roll();
+//     parent.score(r, ScoreSheet::Color::RED, 5);
+//     cout << parent;
+//     QwintoPlayer Artem(qs,"Artem");
+// }
