@@ -14,12 +14,13 @@ class ScoreSheet
 {
   private:
   //data
+    
     int overallScore;
-    string name_player;
     bool ended;
     //Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
   //data
+  string name_player;
   int num_failed[4];
   //functions
     virtual bool validate(int) = 0;
@@ -36,10 +37,10 @@ class ScoreSheet
         GREEN,
         WHITE
     };
-  //constructor// need virtual destructor!!!!!!!!!
+  //constructor//
     ScoreSheet(string s = "");
-  //need a copy constructor!!!!!!
     ScoreSheet(const ScoreSheet &from);
+    virtual ~ScoreSheet();
   //functions
     void addFail();
     void setTotal();

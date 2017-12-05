@@ -10,8 +10,11 @@ protected:
   ScoreSheet* sheet;
 
 public:
-  //constructor//need a virtual destructor!!!!!!!!
+  //constructor
+
   Player(ScoreSheet*, const string &_name = "");
+  virtual ~Player();
+
   virtual ScoreSheet::Color choseColor() = 0;
   //set players status
 

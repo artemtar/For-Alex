@@ -1,7 +1,9 @@
 #include "Player.h"
 
 
+
 Player::Player(ScoreSheet* s, const string &_name) : sheet{s}, name{_name} {}
+Player::~Player(){}
 
 
 int Player::inputChecker(int boundA, int boundB){
