@@ -8,7 +8,7 @@
 //using namespace std;
 
 int main(){
-//    std:string gameVersion;
+    std:string gameVersion;
 
 
    //get version of the game
@@ -49,12 +49,14 @@ int main(){
         std::cin>>currentRollNumOfDices;
         
 
-        for (int i=0;i<currentRollNumOfDices;i++){
-            std::cout<<"What is the colour of the dice number "<<i+1<<" that you want to roll?";
+      //  
             
-            (*currentPlayer)->inputBeforeRoll(currentRoll);
-           
-        }
+           //get the colours of the dices from the user and roll the dices with the selected collour
+            currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
+
+
+
+    }
         //if wrong print all available colours
 
         
@@ -86,13 +88,13 @@ int main(){
 
 
     //test only
-    RollOfDice rd;
+//     RollOfDice rd;
 
 
-    QwintoScoreSheet artemBoard("Artem");
-    QwintoPlayer artem (artemBoard, "Artem");
-    Player& p = artem;
-    p.setStatusActive();
-    p.inputBeforeRoll(rd);
+//     QwintoScoreSheet artemBoard("Artem");
+//     QwintoPlayer artem (artemBoard, "Artem");
+//     Player& p = artem;
+//     p.setStatusActive();
+//    // p.inputBeforeRoll(rd);
 
 }

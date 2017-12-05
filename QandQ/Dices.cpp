@@ -38,10 +38,13 @@ RollOfDice::operator int()
     return sum;
 }
 //create 3 random dices!!probably change to iterators!!
-void RollOfDice::roll()
+void RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
 {
-    for (Dice &d : dices)
-        d.roll();
+   // for (auto &d : *this){
+    //    for (auto &colour: selectedColours){
+    //        if (colour==d.c){d.roll;}
+    //    }
+ //   }
 }
 //qwixx staff
 RollOfDice RollOfDice::pair(int d1, int d2) {}
