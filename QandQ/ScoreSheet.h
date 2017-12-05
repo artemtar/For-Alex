@@ -12,7 +12,6 @@ struct Dice;
 struct RollOfDice;
 class ScoreSheet
 {
-    
   private:
   //data
     int overallScore;
@@ -27,6 +26,7 @@ class ScoreSheet
     
 
   public:
+
   //data
     enum Color
     {
@@ -36,8 +36,10 @@ class ScoreSheet
         GREEN,
         WHITE
     };
-  //constructors
+  //constructor// need virtual destructor!!!!!!!!!
     ScoreSheet(string s = "");
+  //need a copy constructor!!!!!!
+    ScoreSheet(const ScoreSheet &from);
   //functions
     void addFail();
     void setTotal();
@@ -120,7 +122,8 @@ class QwintoScoreSheet : public ScoreSheet
 
   public:
   //constructors
-    QwintoScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
+    QwintoScoreSheet(string name);//moved inside initializetion list//, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
+    QwintoScoreSheet(const QwintoScoreSheet &from);//Aleks made copy constructor
   //methods
     bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
     bool validate(int);
