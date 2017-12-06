@@ -90,15 +90,21 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 }
  std::vector<ScoreSheet::Color> QwintoPlayer::inputBeforeRoll(RollOfDice &rd, int numOfDices)
 {
-    std::vector<ScoreSheet::Color> colours;
+    std::vector<ScoreSheet::Color> colours{};
     //get the colours from the user
     for (int i=0; i < numOfDices; i++){
-        ScoreSheet::Color tempColour;
+        ScoreSheet::Color receivedColour;
         std::cout<<"What is the colour of the dice number "<< i + 1 << endl;
-        tempColour = choseColor();
-        colours.push_back(tempColour);  
+        receivedColour = choseColor();
+        for(auto colour:colours){
+            if (colour==receivedColour){
+                std::cout<<"You already chosen this colour. Please choose another one";
+                receivedColour=choseColor();
+            }
+        }
+        colours.push_back(receivedColour);  
     }
-
+    return colours;
 }
 
 //qwinto player ends

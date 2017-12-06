@@ -34,6 +34,7 @@ int main()
     std::cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
     numOfPlayers = inputCheckerForMain(2, 6); //i think 6 is max
     cout << endl;
+
     vector<Player *> players; //to keep the players
 
     std::cout << " Please input 1 if you want to play Quinto and 2 if you want to play Quixx : ";
@@ -75,31 +76,12 @@ int main()
     }
 
     RollOfDice currentRoll{};
-
-
-   //create all required players and 
-   for (int i = 0; i < numOfPlayers; i++){
-       std::string tempName; 
-
-       std::cout << "What is the name of the player " << i + 1 << " : " << endl;
-       std::cin >> tempName;
-
-       QwintoScoreSheet tempScoreSheet{tempName};
-       QwintoPlayer tempPlayer{tempScoreSheet,tempName};
-
-       players.push_back(&tempPlayer);//copy constructors called here
-
-       std::cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
-
-   }
-  
     
+    vector<Player*>::iterator currentPlayer = players.begin();//get the first player
     
     while(true){         
-
-
-        vector<QwintoPlayer*>::iterator currentPlayer = players.begin();
-        
+        std::cout<<"The active player is "<<(*currentPlayer)->name<<std::endl;
+        //mark current player as active??
 
         std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
         //ask if the player wants to roll 1,2 or 3 dices
@@ -109,10 +91,14 @@ int main()
            //get the colours of the dices from the user and roll the dices with the selected collour
            //
            // 
-      //  (*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices);
+        int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
          
+        std::cout<<"The roll gave you "<<currentScore<<" points"<<std::endl;
        // std::cout<<currentScore;
-        break;
+        currentPlayer++;
+
+        if(currentPlayer==players.end()){currentPlayer=players.begin();}//if all players made the move get back to first
+       // break;
 
 
 
