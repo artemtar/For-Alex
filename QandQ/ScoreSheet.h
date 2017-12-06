@@ -55,6 +55,7 @@ class ScoreSheet
 
 #ifndef QWINTOROW
 #define QWINTOROW
+
 template <const ScoreSheet::Color C>
 class QwintoRow 
 {
@@ -69,12 +70,31 @@ class QwintoRow
     int amountNums();
     friend ostream &operator<<(ostream &out, const QwintoRow<C> &qr)
     {
+      if(C == ScoreSheet::Color::RED){
         for (auto i : qr.row)
         {
-            out << i;
+           // out << "|" << lazyLine(i);
         }
-        return out;
+        return out;}
+      if(C == ScoreSheet::Color::YELLOW){
+        for (auto i : qr.row)
+        {
+            out << "|" << i;
+        }
+        return out;}
+      if(C == ScoreSheet::Color::BLUE){
+        for (auto i : qr.row)
+        {
+            out << "|" << i;
+        }
+        return out;}
     }
+    // template <const ScoreSheet::Color C>
+    // string lazyLine(int i){
+    // if(i == -1) return  "  "; 
+    // if(i > 0 && i < 10) return " " + to_string(i);
+    // else return to_String(i);
+// }
 };
 
 //separate file to hold declaration of template
