@@ -30,6 +30,7 @@ public:
   virtual void inputAfterRoll(RollOfDice &) = 0;
   //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
   bool operator <(const Player&);
+  //bool findWinner(Player*, Player*); looking a place to implement
   friend ostream &operator<<(ostream &, const Player &);
   
 };
