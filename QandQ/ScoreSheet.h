@@ -15,8 +15,7 @@ class ScoreSheet
   private:
   //data
     
-    int overallScore;
-    bool ended;//have no idea what is it
+    int overallScore;   
     //Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
   //data
@@ -58,6 +57,7 @@ class ScoreSheet
 
 #ifndef QWINTOROW
 #define QWINTOROW
+
 template <const ScoreSheet::Color C>
 class QwintoRow 
 {
@@ -74,12 +74,31 @@ class QwintoRow
     int amountNums();
     friend ostream &operator<<(ostream &out, const QwintoRow<C> &qr)
     {
+      if(C == ScoreSheet::Color::RED){
         for (auto i : qr.row)
         {
-            out << i;
+           // out << "|" << lazyLine(i);
         }
-        return out;
+        return out;}
+      if(C == ScoreSheet::Color::YELLOW){
+        for (auto i : qr.row)
+        {
+            out << "|" << i;
+        }
+        return out;}
+      if(C == ScoreSheet::Color::BLUE){
+        for (auto i : qr.row)
+        {
+            out << "|" << i;
+        }
+        return out;}
     }
+    // template <const ScoreSheet::Color C>
+    // string lazyLine(int i){
+    // if(i == -1) return  "  "; 
+    // if(i > 0 && i < 10) return " " + to_string(i);
+    // else return to_String(i);
+// }
 };
 
 //separate file to hold declaration of template
@@ -123,14 +142,16 @@ class QwintoScoreSheet : public ScoreSheet
     QwintoRow<RED> red;
     QwintoRow<YELLOW> yellow;
     QwintoRow<BLUE> blue;
-
+    int calcLine(int, int, int, int);
   public:
   //constructors
     QwintoScoreSheet(string name);//moved inside initializetion list//, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
     QwintoScoreSheet(const QwintoScoreSheet &from);//Aleks made copy constructor
   //methods
     bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
+
     bool validate(int,ScoreSheet*,RollOfDice);
+
     int calcTotal() override;
     bool operator!() override;
     ostream& print(ostream &) const override;

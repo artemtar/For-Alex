@@ -4,7 +4,7 @@
 #include "Dices.h"
 #include <iostream>
 #include <vector>
-#include <algorithm> 
+#include <algorithm>
 
 int inputCheckerForMain(int boundA, int boundB)
 {
@@ -25,20 +25,25 @@ int inputCheckerForMain(int boundA, int boundB)
     return choice;
 }
 
+bool findWinner(Player *p1, Player *p2)
+{
+    return *p1 < *p2;
+}
+
 int main()
 {
     int gameVersion = -1;
-
+    cout << "Please chose game" << endl;
+    cout << "1. Qwinto" << endl;
+    cout << "2. Qwixx" << endl;
+    gameVersion = inputCheckerForMain(1, 2);
     //get Number Of Players
     int numOfPlayers = -1;
-    std::cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
-    numOfPlayers = inputCheckerForMain(2, 6); //i think 6 is max
+    cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
+    numOfPlayers = inputCheckerForMain(2, 6); //let 6 be the max
     cout << endl;
-
     vector<Player *> players; //to keep the players
 
-    std::cout << " Please input 1 if you want to play Quinto and 2 if you want to play Quixx : ";
-    gameVersion = inputCheckerForMain(1, 2);
     //poolimorphic part  is here, depending on game vertion,
     //we are having different players, after switch statement
     //the game should look the same for both game types
@@ -50,20 +55,18 @@ int main()
         int count = 0;
         for (int i = 0; i < numOfPlayers; i++)
         {
-            std::string tempName;
+            string tempName;
 
-            std::cout << "What is the name of the player " << i + 1 << ": ";
-            std::cin >> tempName;
+            cout << "What is the name of the player " << i + 1 << ": ";
+            cin >> tempName;
             cout << endl;
-            QwintoScoreSheet* tempScoreSheet = new QwintoScoreSheet {tempName};
-            Player* tempPlayer = new QwintoPlayer{tempScoreSheet, tempName};
-            // took me an hour to get here, every time you have been out of loop it was destroing the object.
-            // we have to use new a lot, and now we actually need virtual destructors
+            QwintoScoreSheet *tempScoreSheet = new QwintoScoreSheet{tempName};
+            Player *tempPlayer = new QwintoPlayer{tempScoreSheet, tempName};
             players.push_back(tempPlayer);
-            std::cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
-        ++count; 
+            cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
+            ++count;
         }
-         cout << "out of loop " << count << endl; //this line, and custom distructor helped me to find the bag
+        cout << "out of loop " << count << endl; //this line, and custom distructor helped me to find the bag
     }
     break;
 
@@ -76,95 +79,55 @@ int main()
     }
 
     RollOfDice currentRoll{};
-    
-    vector<Player*>::iterator currentPlayer = players.begin();//get the first player
-    
-    while(true){         
-        std::cout<<"The active player is "<<(*currentPlayer)->name<<std::endl;
-        //mark current player as active??
+    //main loop will run till one of the boards is full
+    while (1)
+    {
+        for (Player *currentPlayer : players)
+        {
+            while (true)
+            {
+                cout << "The active player is " << currentPlayer->name << endl;
+                //mark current player as active??
 
-        std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
-        //ask if the player wants to roll 1,2 or 3 dices
-        int currentRollNumOfDices;
-        std::cin>>currentRollNumOfDices;
-    
-           //get the colours of the dices from the user and roll the dices with the selected collour
-           //
-           // 
+                cout << "Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
+                //ask if the player wants to roll 1,2 or 3 dices
+                int currentRollNumOfDices = -1;
+                currentRollNumOfDices = inputCheckerForMain(1, 3);
 
-        int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
+                //get the colours of the dices from the user and roll the dices with the selected collour
 
-         
-        std::cout<<"The roll gave "<<currentScore<<" points"<<std::endl;
-       // std::cout<<currentScore;
-       //check ig the roll is fail // check if player has 4 fails and the game ended//
+                int currentScore = currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
+                cout << "The roll gave " << currentScore << " points: " << endl;
+                cout << *currentPlayer;
+                currentPlayer->inputAfterRoll(currentRoll);
 
-        vector<Player*>::iterator tempPlayer = currentPlayer;
-        
-        
-        do{
-            bool wantToPutInScoreheet;
-            std::cout<<*(*tempPlayer);//print the scoresheet of the player we ask if wants to put result in scoresheet
-
-            std::cout<<(*tempPlayer)->name<<", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
-            cin>>wantToPutInScoreheet;
-
-            if (wantToPutInScoreheet){
-                while(true){
-                    int chosenColourNum;
-                    std::cout<<(*tempPlayer)->name<<", what is the colour of the row you want to put the roll in? ";
-                    ScoreSheet::Color chosenColour = (*tempPlayer)->choseColor();
-                
-                    int chosenPosition;
-                    std::cout<<(*tempPlayer)->name<<", what is the position in the row you want to put the roll in? ";
-                    std::cin>>chosenPosition;   
-                    chosenPosition=inputCheckerForMain(1,12);
-                
-                    if ((*(*(*tempPlayer)).sheet).score(currentRoll,chosenColour,chosenPosition)){
-                        std::cout<<(*tempPlayer)->name<<", you put roll in your scoresheet"<<std::endl;
-                        std::cout<<*(*tempPlayer)<<std::endl;
-                        break;
-                    }
+                for (Player *tempPlayer : players)
+                {
+                    if (tempPlayer == currentPlayer)
+                        continue;
+                    bool wantToPutInScoreheet = -1;
+                    cout << *tempPlayer; //print the scoresheet of the player we ask if wants to put result in scoresheet
+                    cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
+                    wantToPutInScoreheet = inputCheckerForMain(0, 1);
+                    if (wantToPutInScoreheet)
+                        tempPlayer->inputAfterRoll(currentRoll);
                 }
-                //check if player has full rows and the game ended
             }
-
-            tempPlayer++;
-            if(tempPlayer==players.end()){tempPlayer=players.begin();}
-          
-        }while (tempPlayer!=currentPlayer);
-
-        if(currentPlayer==players.end()){currentPlayer=players.begin();}//if all players made the move get back to first
-       
-        
-       // break;
-
-
-
+        }
+        //checking if game is ended
+        for (Player *p : players)
+        {
+            ScoreSheet &playersScoreSheet = *(p->getScoreSheet());
+            if (!playersScoreSheet)
+            {
+                cout << "Game is ended on player" << p->name << endl;
+                break;
+            }
+        }
+        //finding winner
+        for_each(players.begin(), players.end(), [](Player *p) {ScoreSheet* s = p->getScoreSheet(); s->setTotal(); });
+        sort(players.begin(), players.end(), findWinner);
+        Player *winner = players.at(0);
+        cout << "The winner is " << winner->name << endl;
     }
-    //if wrong print all available colours
-
-    //         //for all the players
-    //             //if player can put it in his scoresheet
-    //                 std::cout<<" Do you want to use the score of this dices rolled?";
-    //                 //if yes
-    //                     std::cout<<" What is the row that you want to put your score into?";
-    //                     //if can
-    //                         //if filled two rows
-    //                            //game over
-    //                            break;
-    //             //else
-    //                 //if current player cannot put sccore in his board
-    //                    //-5points from the final score of the player
-    //                    // number of failed throws ++ //for this player??
-    //                    // if failed Throws==4
-    //                        //game over
-    //                        break;
-    //     }
-    //game over calculate the score
-    //get the right score of the completed one
-
-//artem staff
-//for_each(players.begin(), players.end(), [](auto p){ScoreSheet s =p->getScoreSheet; s.setTotal;});
-
 }
