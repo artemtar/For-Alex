@@ -23,7 +23,7 @@ class ScoreSheet
   string name_player;
   int num_failed[4];
   //functions
-    virtual bool validate(int) = 0;
+  virtual bool validate(int,ScoreSheet*,RollOfDice) = 0; 
     
 
   public:
@@ -42,6 +42,8 @@ class ScoreSheet
     ScoreSheet(const ScoreSheet &from);
     virtual ~ScoreSheet();
   //functions
+
+    
     void addFail();
     virtual bool operator!();
     friend ostream &operator<<(ostream &, const ScoreSheet &);
@@ -61,10 +63,12 @@ class QwintoRow
 {
   private:
     int row[10];
-    bool validate(int);
+    
 
   public:
-  QwintoRow();
+    bool validate(int,int);
+    bool chosen=false;
+    QwintoRow();
     int &operator[](int);
     bool isFull();
     int amountNums();
@@ -126,7 +130,7 @@ class QwintoScoreSheet : public ScoreSheet
     QwintoScoreSheet(const QwintoScoreSheet &from);//Aleks made copy constructor
   //methods
     bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
-    bool validate(int);
+    bool validate(int,ScoreSheet*,RollOfDice);
     int calcTotal() override;
     bool operator!() override;
     ostream& print(ostream &) const override;
@@ -150,7 +154,7 @@ class QwixScoreSheet : public ScoreSheet
     QwixScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>, QwintoRow<GREEN>);
   //functions
     bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
-    bool validate(int);
+    virtual bool validate(int,ScoreSheet*,RollOfDice);
     int calcTotal() override;
     bool operator!() override;
     ostream& print(ostream &) const override;
