@@ -95,11 +95,48 @@ int main()
         int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
 
          
-        std::cout<<"The roll gave you "<<currentScore<<" points"<<std::endl;
+        std::cout<<"The roll gave "<<currentScore<<" points"<<std::endl;
        // std::cout<<currentScore;
-        currentPlayer++;
+       //check ig the roll is fail // check if player has 4 fails and the game ended//
+
+        vector<Player*>::iterator tempPlayer = currentPlayer;
+        
+        
+        do{
+            bool wantToPutInScoreheet;
+            std::cout<<*(*tempPlayer);//print the scoresheet of the player we ask if wants to put result in scoresheet
+
+            std::cout<<(*tempPlayer)->name<<", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
+            cin>>wantToPutInScoreheet;
+
+            if (wantToPutInScoreheet){
+                while(true){
+                    int chosenColourNum;
+                    std::cout<<(*tempPlayer)->name<<", what is the colour of the row you want to put the roll in? ";
+                    ScoreSheet::Color chosenColour = (*tempPlayer)->choseColor();
+                
+                    int chosenPosition;
+                    std::cout<<(*tempPlayer)->name<<", what is the position in the row you want to put the roll in? ";
+                    std::cin>>chosenPosition;   
+                    chosenPosition=inputCheckerForMain(1,12);
+                
+                    if ((*(*(*tempPlayer)).sheet).score(currentRoll,chosenColour,chosenPosition)){
+                        std::cout<<(*tempPlayer)->name<<", you put roll in your scoresheet"<<std::endl;
+                        std::cout<<*(*tempPlayer)<<std::endl;
+                        break;
+                    }
+                }
+                //check if player has full rows and the game ended
+            }
+
+            tempPlayer++;
+            if(tempPlayer==players.end()){tempPlayer=players.begin();}
+          
+        }while (tempPlayer!=currentPlayer);
 
         if(currentPlayer==players.end()){currentPlayer=players.begin();}//if all players made the move get back to first
+       
+        
        // break;
 
 

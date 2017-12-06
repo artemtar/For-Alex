@@ -6,11 +6,12 @@ class Player
 {
 protected:
   bool status = false;
-  ScoreSheet* sheet;
+ 
 
 public:
   //data
   string name;
+  ScoreSheet* sheet;
   //constructor
 
   Player(ScoreSheet*, const string &_name = "");
