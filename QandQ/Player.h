@@ -16,7 +16,7 @@ public:
   Player(const Player&);
   virtual ~Player();
 
-  virtual ScoreSheet::Color choseColor() = 0;
+  ScoreSheet::Color choseColor();
   //set players status
 
   inline void setStatusActive(){status = true;}
@@ -24,7 +24,7 @@ public:
   inline ScoreSheet* getScoreSheet(){return sheet;}
   virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
-  virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int)=0;
+  virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) = 0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
   //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
   bool operator <(const Player&);
@@ -40,12 +40,12 @@ public:
 class QwintoPlayer : public Player
 {
 public:
-    string hi="";
   //constructors
-    QwintoPlayer(QwintoScoreSheet&, string _name);
+    QwintoPlayer(QwintoScoreSheet*, string _name);
     QwintoPlayer(const QwintoPlayer &from);
+    ~QwintoPlayer();//for debuging
   //functions
-    ScoreSheet::Color choseColor() override;
+   // ScoreSheet::Color choseColor() override;
     //virtual
      std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
     virtual void inputAfterRoll(RollOfDice &) override;

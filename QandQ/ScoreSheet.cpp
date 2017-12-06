@@ -10,6 +10,7 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
         num_failed[i] = -1;
     }
 }
+//same as always, not sure if you need it, you just defining default constructor
 ScoreSheet::ScoreSheet(const ScoreSheet& from):name_player(from.name_player),overallScore(from.overallScore),ended(from.ended){
    for (int i = 0; i < 4; ++i)//don't like it
     {
