@@ -75,20 +75,47 @@ int main()
     }
 
     RollOfDice currentRoll{};
-    //virtual functions work, but does some wierd shit with dices,
-    // too lazy to understand how you wanna to implement it, so uncoment line 88 and do your staff
-    while (true)
-    {
-       for ( auto p : players) {
-            std::cout << "Please input the number of dices do you want to roll?(1,2 or 3) : ";
-            //ask if the player wants to roll 1,2 or 3 dices
-            int currentRollNumOfDices = -1;
-            currentRollNumOfDices = inputCheckerForMain(1, 3);
-            //get the colours of the dices from the user and roll the dices with the selected collour
-            //p->inputBeforeRoll(currentRoll, currentRollNumOfDices);
-        }
-        // std::cout<<currentScore
-        break;//for artem, can remove
+
+
+   //create all required players and 
+   for (int i = 0; i < numOfPlayers; i++){
+       std::string tempName; 
+
+       std::cout << "What is the name of the player " << i + 1 << " : " << endl;
+       std::cin >> tempName;
+
+       QwintoScoreSheet tempScoreSheet{tempName};
+       QwintoPlayer tempPlayer{tempScoreSheet,tempName};
+
+       players.push_back(&tempPlayer);//copy constructors called here
+
+       std::cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
+
+   }
+  
+    
+    
+    while(true){         
+
+
+        vector<QwintoPlayer*>::iterator currentPlayer = players.begin();
+        
+
+        std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
+        //ask if the player wants to roll 1,2 or 3 dices
+        int currentRollNumOfDices;
+        std::cin>>currentRollNumOfDices;
+    
+           //get the colours of the dices from the user and roll the dices with the selected collour
+           //
+           // 
+      //  (*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices);
+         
+       // std::cout<<currentScore;
+        break;
+
+
+
     }
     //if wrong print all available colours
 
