@@ -16,7 +16,7 @@ class ScoreSheet
   //data
     
     int overallScore;
-    bool ended;
+    bool ended;//have no idea what is it
     //Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
   //data
@@ -43,14 +43,13 @@ class ScoreSheet
     virtual ~ScoreSheet();
   //functions
     void addFail();
-    void setTotal();
     virtual bool operator!();
     friend ostream &operator<<(ostream &, const ScoreSheet &);
-    //virtual
     virtual bool score(RollOfDice, ScoreSheet::Color, int pos = -1) = 0;
-     //void setTotal();
     virtual ostream& print(ostream &)const = 0;
+    int setTotal();
     virtual int calcTotal() = 0;    
+    inline int getScore(){return overallScore;}
    
 };
 #endif //SCORESHEET
