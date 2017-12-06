@@ -73,7 +73,7 @@ int main(){
            //get the colours of the dices from the user and roll the dices with the selected collour
            //
            // 
-        (*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices);
+      //  (*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices);
          
        // std::cout<<currentScore;
         break;
