@@ -44,16 +44,18 @@ ScoreSheet::Color QwintoPlayer::choseColor()
     return c;
 }
 
+//**Qwinto**
+
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(&qs, _name){}
 //QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//not needed anymore?
 //some stuff to do before input
-void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
+void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 {
  int choice = -1;   
     if (getStatus())
     {
 
-        rd.roll();
+       // rd.roll();//need a colour vector now
         ScoreSheet::Color c = choseColor();
         cout << "Chose if you want to input score in a row or use fail field" << endl;
         cout << "1. Input" << endl;
@@ -69,7 +71,7 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
         //case where player chose position on the board
     case 1:
     {
-        cout << "Chose color and position" << endl;
+        cout << "Choose color and position" << endl;
         ScoreSheet::Color c = choseColor();
         cout << "Position: " << endl;
         int pos = inputChecker(1, 10);
@@ -88,13 +90,20 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice &rd)
 
     //or he can chose to use fail field
 }
-void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
+ std::vector<ScoreSheet::Color> QwintoPlayer::inputBeforeRoll(RollOfDice &rd,int numOfDices)
 {
-    if (getStatus())
-    {
-    }
-    else
-    {
+    std::vector<ScoreSheet::Color> colours;
+
+    //get the colours from the user
+    for (int i=0;i<numOfDices;i++){
+        std::string tempColour;
+        std::cout<<"What is the colour of the dice number "<<i+1<<" that you want to roll?(red 1,blue 2, yellow 3)";
+        cin>>tempColour;
+
+        if (tempColour=="0"){colours.push_back(ScoreSheet::Color::RED);}
+        else if (tempColour=="1"){colours.push_back(ScoreSheet::Color::BLUE);}
+        else if (tempColour=="2"){colours.push_back(ScoreSheet::Color::YELLOW);}
+        else{std::cout<<"Your input is incorrect. Please try again. ";i--;}       
     }
 }
 

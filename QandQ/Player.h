@@ -22,7 +22,7 @@ public:
   inline void setStatusInactuve(){status = false;}
   virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
-  virtual void inputBeforeRoll(RollOfDice &) = 0;
+  virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) = 0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
   //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
   friend ostream &operator<<(ostream &, const Player &);
@@ -43,7 +43,7 @@ public:
   //functions
     ScoreSheet::Color choseColor() override;
     //virtual
-    virtual void inputBeforeRoll(RollOfDice &) override;
+     std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
     virtual void inputAfterRoll(RollOfDice &) override;
 };
 
