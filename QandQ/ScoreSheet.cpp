@@ -11,7 +11,7 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
     }
 }
 //same as always, not sure if you need it, you just defining default constructor
-ScoreSheet::ScoreSheet(const ScoreSheet& from):name_player(from.name_player),overallScore(from.overallScore),ended(from.ended){
+ScoreSheet::ScoreSheet(const ScoreSheet& from):name_player(from.name_player),overallScore(from.overallScore){
    for (int i = 0; i < 4; ++i)//don't like it
     {
         num_failed[i] = from.num_failed[i];
@@ -34,12 +34,7 @@ int ScoreSheet::setTotal(){
 }
 //if fails is 4, stop the game
 bool ScoreSheet::operator!()
-{
-    if (num_failed[3] == 4)
-        return true;
-    else
-        return false;
-}
+{cout << "this line should not appeatr";}
 
 //not used dnow
 
@@ -85,7 +80,10 @@ bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
         break;
     }
 }
-
+int QwintoScoreSheet::calcLine(int a, int b, int c, int val){
+    if(a != -1 && b != -1, c != -1) return val;
+    else return 0;
+}
 //get the toral
 int QwintoScoreSheet::calcTotal()
 {
@@ -105,17 +103,11 @@ int QwintoScoreSheet::calcTotal()
         rowsTotal = blue.amountNums();
     //calculating columns
     int colTotal = 0;
-    if (red[0] != -1 && yellow[1] != -1 && blue[3] != -1)
-        colTotal += blue[3];
-    if (red[1] != -1 && yellow[2] != -1 && blue[4] != -1)
-        colTotal += red[1];
-    if (red[5] != -1 && yellow[6] != -1 && blue[7] != -1)
-        colTotal += red[5];
-    if (red[6] != -1 && yellow[7] != -1 && blue[8] != -1)
-        colTotal += yellow[7];
-    if (red[7] != -1 && yellow[8] != -1 && blue[9] != -1)
-        colTotal += blue[9];
-
+    colTotal += calcLine(red[0], yellow[1], blue[3], blue[3]);
+    colTotal += calcLine(red[1], yellow[2], blue[4], red[1]);
+    colTotal += calcLine(red[5], yellow[6], blue[7], red[5]);
+    colTotal += calcLine(red[6], yellow[7], blue[8], yellow[7]);
+    colTotal += calcLine(red[7], yellow[8], blue[9], blue[9]);
     int fails = 0;
     for (int i = 0; i < 3; ++i)
     {
@@ -128,15 +120,14 @@ int QwintoScoreSheet::calcTotal()
 //have to be polimorphic
 bool QwintoScoreSheet::operator!()
 {
-    ScoreSheet &parent = *this;
-    if (!parent)
-        return false;
+    if (num_failed[3] != 4)
+        return true;
     //checking if two rows are full
     int check = red.isFull() + yellow.isFull() + blue.isFull();
     if (check < 2)
-        return false;
-    else
         return true;
+    else
+        return false;
 }
 //to put on the stream
 ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
@@ -183,9 +174,7 @@ ostream &QwixScoreSheet::print(ostream &out) const
 // int main()
 // {
 //     //testing
-//     QwintoRow<ScoreSheet::Color::RED> qr;
-//     QwintoRow<ScoreSheet::Color::YELLOW> qy;
-//     QwintoRow<ScoreSheet::Color::BLUE> qb;
+
 //     RollOfDice r;
 //     cout << r << "roled" << endl;
 //     qr[2] = r;

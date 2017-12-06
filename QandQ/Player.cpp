@@ -48,6 +48,9 @@ bool Player::operator <(const Player& p) {
          if(sheet->getScore() < p.sheet->getScore())
             return true;     
          }
+// bool Player::findWinner(Player* p1, Player* p2){
+//     return *p1 < *p2;
+// }
 
 //**Qwinto**
 QwintoPlayer::~QwintoPlayer(){cout << "Qwinto player destructor!!!" << endl;}

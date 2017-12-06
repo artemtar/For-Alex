@@ -25,6 +25,10 @@ int inputCheckerForMain(int boundA, int boundB)
     return choice;
 }
 
+bool findWinner(Player* p1, Player* p2){
+    return *p1 < *p2;
+}
+
 int main()
 {
     int gameVersion = -1;
@@ -94,6 +98,7 @@ int main()
 
         int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
 
+
          
         std::cout<<"The roll gave you "<<currentScore<<" points"<<std::endl;
        // std::cout<<currentScore;
@@ -101,7 +106,6 @@ int main()
 
         if(currentPlayer==players.end()){currentPlayer=players.begin();}//if all players made the move get back to first
        // break;
-
 
 
     }
@@ -126,8 +130,16 @@ int main()
     //     }
     //game over calculate the score
     //get the right score of the completed one
+    while(1)//use your loop
+    {
+    for(Player* p : players){
+        ScoreSheet& playersScoreSheet = *(p->getScoreSheet());
+        if(!playersScoreSheet){
+            cout << "Game is ended on player" << p->name << endl;
+            break;
+        }
+    }
 
-//artem staff
-//for_each(players.begin(), players.end(), [](auto p){ScoreSheet s =p->getScoreSheet; s.setTotal;});
-
-}
+for_each(players.begin(), players.end(), [](Player* p){ScoreSheet* s = p->getScoreSheet(); s->setTotal();});
+sort(players.begin(), players.end(), findWinner);
+}}

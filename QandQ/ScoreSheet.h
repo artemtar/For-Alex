@@ -15,8 +15,7 @@ class ScoreSheet
   private:
   //data
     
-    int overallScore;
-    bool ended;//have no idea what is it
+    int overallScore;   
     //Give the class ScoreSheet a print function that accepts an std::ostream and
   protected:
   //data
@@ -119,14 +118,14 @@ class QwintoScoreSheet : public ScoreSheet
     QwintoRow<RED> red;
     QwintoRow<YELLOW> yellow;
     QwintoRow<BLUE> blue;
-
+    int calcLine(int, int, int, int);
   public:
   //constructors
     QwintoScoreSheet(string name);//moved inside initializetion list//, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
     QwintoScoreSheet(const QwintoScoreSheet &from);//Aleks made copy constructor
   //methods
     bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
-    bool validate(int);
+    bool validate(int);    
     int calcTotal() override;
     bool operator!() override;
     ostream& print(ostream &) const override;
