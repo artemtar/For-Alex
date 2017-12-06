@@ -62,23 +62,32 @@ QwintoScoreSheet::QwintoScoreSheet(string name)
             : ScoreSheet(name), red( QwintoRow<RED>{}), yellow(QwintoRow<YELLOW>{}), blue( QwintoRow<BLUE>{}) {}// Aleks moved row to be created inside initializetion list
 QwintoScoreSheet::QwintoScoreSheet(const QwintoScoreSheet &from):ScoreSheet(from.name_player),red(from.red),yellow(from.yellow),blue(from.blue){}//need to give a name
 
-bool QwintoScoreSheet::validate(int index){}
-//to return the score
+bool QwintoScoreSheet::validate(int index){
+  
+    return true;}
+
+
+//to check if can put in the position
 bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 {
-    //more code is requered
-    switch (c)
-    {
-    case ScoreSheet::Color::RED:
-        red[pos] = rd; //do something, have to finish validation
-        break;
-    case ScoreSheet::Color::YELLOW:
-        yellow[pos] = rd; //do something
-        break;
-    case ScoreSheet::Color::BLUE:
-        blue[pos] = rd; //do something
-        break;
+    bool colourCondition = false;
+    bool positionCondition =false;
+
+    for (auto& d:rd){
+        if ((d.isEnabled)&&(c==d.c)){colourCondition=true;}
     }
+ 
+      
+    switch (c){
+       case RED: {break;}
+       case YELLOW :{break;}
+       case BLUE :{break;}
+    }
+
+    positionCondition = validate(pos);
+
+    if (colourCondition&&positionCondition){return true;}
+    else{return false;}
 }
 int QwintoScoreSheet::calcLine(int a, int b, int c, int val){
     if(a != -1 && b != -1, c != -1) return val;

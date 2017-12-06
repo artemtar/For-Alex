@@ -44,7 +44,7 @@ RollOfDice::operator int()
     int sum = 0;
     for (auto& d : dices)
         if (d.isEnabled){
-            cout<<d.face;
+           // cout<<d.face;//testing random roll
             sum += d.face;
             d.isEnabled=false;
             }
