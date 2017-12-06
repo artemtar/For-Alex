@@ -4,7 +4,9 @@
 
 Player::Player(ScoreSheet* s, const string &_name) : sheet{s}, name{_name} {}
 //Player::Player(const Player& from):name{from.name},status{from.status},sheet{from.sheet}{}
-Player::~Player(){}
+Player::~Player(){
+    delete sheet;
+}
 int Player::inputChecker(int boundA, int boundB){
     int choice = -1;        
         while (42)
@@ -25,7 +27,7 @@ ostream &operator<<(ostream &os, const Player &p)
     return os << *(p.sheet);
 }
 //initilizing qiwinto player
-ScoreSheet::Color QwintoPlayer::choseColor()
+ScoreSheet::Color Player::choseColor()
 {
     cout << "Please, chose the color:" << endl;
     cout << "1. Red" << endl;
@@ -48,8 +50,9 @@ bool Player::operator <(const Player& p) {
          }
 
 //**Qwinto**
+QwintoPlayer::~QwintoPlayer(){cout << "Qwinto player destructor!!!" << endl;}
 
-QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(&qs, _name){}
+QwintoPlayer::QwintoPlayer(QwintoScoreSheet* qs, string _name) : Player(qs, _name){}
 //QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(&from.sheet,from.name){}
 //some stuff to do before input
 void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
@@ -67,7 +70,7 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
     case 1:
     {
         cout << "Choose color and position" << endl;
-        ScoreSheet::Color c = choseColor();
+       ScoreSheet::Color c = choseColor();
         cout << "Position: " << endl;
         int pos = inputChecker(1, 10);
         //here should be try and catch if was not able to add into row
