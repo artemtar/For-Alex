@@ -11,12 +11,12 @@ ScoreSheet::ScoreSheet(string name) : name_player(name)
     }
 }
 ScoreSheet::ScoreSheet(const ScoreSheet& from):name_player(from.name_player),overallScore(from.overallScore),ended(from.ended){
-
    for (int i = 0; i < 4; ++i)//don't like it
     {
         num_failed[i] = from.num_failed[i];
     }
 }
+ScoreSheet::~ScoreSheet(){}
 
 //to add fail into num_fail
 void ScoreSheet::addFail(){
@@ -60,7 +60,7 @@ ostream &operator<<(ostream &out, const ScoreSheet &s)
 //constructor
 QwintoScoreSheet::QwintoScoreSheet(string name)
             : ScoreSheet(name), red( QwintoRow<RED>{}), yellow(QwintoRow<YELLOW>{}), blue( QwintoRow<BLUE>{}) {}// Aleks moved row to be created inside initializetion list
-QwintoScoreSheet::QwintoScoreSheet(const QwintoScoreSheet &from):ScoreSheet(),red(from.red),yellow(from.yellow),blue(from.blue){}//need to give a name
+QwintoScoreSheet::QwintoScoreSheet(const QwintoScoreSheet &from):ScoreSheet(from.name_player),red(from.red),yellow(from.yellow),blue(from.blue){}//need to give a name
 
 bool QwintoScoreSheet::validate(int index){}
 //to return the score
