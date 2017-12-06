@@ -21,11 +21,13 @@ public:
 
   inline void setStatusActive(){status = true;}
   inline void setStatusInactuve(){status = false;}
+  inline ScoreSheet* getScoreSheet(){return sheet;}
   virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
   virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int)=0;
   virtual void inputAfterRoll(RollOfDice &) = 0;
   //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
+  bool operator <(const Player&);
   friend ostream &operator<<(ostream &, const Player &);
   
 };

@@ -27,6 +27,10 @@ void ScoreSheet::addFail(){
          } 
     }
 }
+int ScoreSheet::setTotal(){
+    overallScore = calcTotal();
+    return overallScore;
+}
 //if fails is 4, stop the game
 bool ScoreSheet::operator!()
 {

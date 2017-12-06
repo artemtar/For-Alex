@@ -5,43 +5,62 @@
 #include <iostream>
 #include <vector>
 
-//using namespace std;
+int inputCheckerForMain(int boundA, int boundB){
+    int choice = -1;        
+        while (42)
+    {
+        while (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again: ";
+        }
+        if (!(choice < boundA) && !(choice > boundB)) break;
+        else cout << "Invalid input. Try again: ";
+    }
+    return choice;
+}
 
 int main(){
-    std:string gameVersion;
+   int gameVersion = -1;
 
 
    //get version of the game
-   /*
-   std::cout<<" Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
-   std::cin>>gameVersion;  
-*/
+
+   std::cout << " Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
+   gameVersion = inputCheckerForMain(0, 1);  
+
+
    //get Number Of Players
-   int numOfPlayers;
-   std::cout<<" Please input the number of player that you want to have : ";
-   std::cin>>numOfPlayers;  
+   int numOfPlayers = -1;
+   std::cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
+   numOfPlayers = inputCheckerForMain(2, 6);//i think 6 is max  
+   cout << endl;
    
    std::vector<QwintoPlayer*> players; //to keep the players
     
     RollOfDice currentRoll{};
 
    //create all required players and 
-   for (int i = 0;i<numOfPlayers;i++){
+   for (int i = 0; i < numOfPlayers; i++){
        std::string tempName; 
-       std::cout<<"\n"<<"What is the name of the player "<<i+1<<" : ";
-       std::cin>> tempName;
+
+       std::cout << "What is the name of the player " << i + 1 << " : " << endl;
+       std::cin >> tempName;
+
        QwintoScoreSheet tempScoreSheet{tempName};
        QwintoPlayer tempPlayer{tempScoreSheet,tempName};
 
        players.push_back(&tempPlayer);//copy constructors called here
 
-      // std::cout<<"\n Player "<<i+1<<" with name : "<< tempName <<" is created.";
+       std::cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
+
    }
   
     
     
-    while(true){
-         
+    while(true){         
+
 
         vector<QwintoPlayer*>::iterator currentPlayer = players.begin();
         
@@ -58,6 +77,7 @@ int main(){
          
        // std::cout<<currentScore;
         break;
+
 
     }
         //if wrong print all available colours

@@ -38,8 +38,10 @@ struct RollOfDice
     RollOfDice& roll(std::vector<ScoreSheet::Color>);
     
     //to implement for each loop in the RollOf Dices
+
     std::vector<Dice>::iterator begin();
     std::vector<Dice>::iterator end();
+
 
     RollOfDice pair(int, int);
 
