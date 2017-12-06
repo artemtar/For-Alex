@@ -37,8 +37,8 @@ struct RollOfDice
     void roll(std::vector<ScoreSheet::Color>);
     
     //to implement for each loop in the RollOf Dices
-    inline auto begin(){return dices.front();};
-    inline auto end(){return dices.back();};
+    //inline auto begin(){return dices.front();};
+    //inline auto end(){return dices.back();};
 
     RollOfDice pair(int, int);
 

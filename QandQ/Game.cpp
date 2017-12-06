@@ -5,54 +5,67 @@
 #include <iostream>
 #include <vector>
 
-//using namespace std;
+int inputCheckerForMain(int boundA, int boundB){
+    int choice = -1;        
+        while (42)
+    {
+        while (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again: ";
+        }
+        if (!(choice < boundA) && !(choice > boundB)) break;
+        else cout << "Invalid input. Try again: ";
+    }
+    return choice;
+}
 
 int main(){
-    std:string gameVersion;
+   int gameVersion = -1;
 
 
    //get version of the game
-   std::cout<<" Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
-   std::cin>>gameVersion;  
+   std::cout << " Please input 0 if you want to play Quinto and 1 if you want to play Quixx : ";
+   gameVersion = inputCheckerForMain(0, 1);  
 
    //get Number Of Players
-   int numOfPlayers;
-   std::cout<<" Please input the number of player that you want to have : ";
-   std::cin>>numOfPlayers;  
+   int numOfPlayers = -1;
+   std::cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
+   numOfPlayers = inputCheckerForMain(2, 6);//i think 6 is max  
+   cout << endl;
    
    std::vector<Player*> players; //to keep the players
     
    //create all required players and 
-   for (int i = 0;i<numOfPlayers;i++){
+   for (int i = 0; i < numOfPlayers; i++){
        std::string tempName; 
-       std::cout<<"What is the name of the player "<<i+1<<" : ";
-       std::cin>> tempName;
+       std::cout << "What is the name of the player " << i + 1 << " : " << endl;
+       std::cin >> tempName;
        QwintoScoreSheet tempScoreSheet{tempName};
        QwintoPlayer tempPlayer{tempScoreSheet,tempName};
 
        players.push_back(&tempPlayer);//copy constructors called here
-
-       std::cout<<"\n Player "<<i+1<<" with name : "<< tempName <<" is created.";
+       std::cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
    }
   
     RollOfDice currentRoll{};
     
-    while(true){
-         
+    while(true){         
 
         vector<Player*>::iterator currentPlayer = players.begin();
-        
-
-        std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3)";
+        std::cout<< "Please input the number of dices do you want to roll as a number?(1,2 or 3)";
         //ask if the player wants to roll 1,2 or 3 dices
         int currentRollNumOfDices;
-        std::cin>>currentRollNumOfDices;
+        currentRollNumOfDices = inputCheckerForMain(1, 3);
         
-
-      //  
-            
            //get the colours of the dices from the user and roll the dices with the selected collour
             currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
+
+//std::for_each();
+            ///Artem staff
+      //for_each(players.begin(), players.end(), [](Player* &p){ScoreSheet* s = p->getScoreSheet;});
+
 
 
 
