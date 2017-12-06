@@ -60,34 +60,57 @@ QwintoPlayer::QwintoPlayer(QwintoScoreSheet* qs, string _name) : Player(qs, _nam
 //some stuff to do before input
 void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 {
- int choice = -1;   
-       // rd.roll();//need a colour vector now
-        ScoreSheet::Color c = choseColor();
-        cout << "Chose if you want to input score in a row or use fail field" << endl;
-        cout << "1. Input" << endl;
-        cout << "2. Fail" << endl; 
-        choice = inputChecker(1, 2);    
-    switch (choice)
-    {
-        //case where player chose position on the board
-    case 1:
-    {
-        cout << "Choose color and position" << endl;
-       ScoreSheet::Color c = choseColor();
-        cout << "Position: " << endl;
-        int pos = inputChecker(1, 10);
-        //here should be try and catch if was not able to add into row
-        //sheet->score(rd, c, pos);
-    }
-    break;
+                    while(true){
+                    int chosenColourNum;
+                    cout << name << ", what is the colour of the row you want to put the roll in? ";
+                    ScoreSheet::Color chosenColour = choseColor();
+                
+                    int chosenPosition;
+                    cout<<name << ", what is the position in the row you want to put the roll in? ";
+                    cin>>chosenPosition;   
+                    chosenPosition=inputChecker(1,12);
+                
+                    if (sheet->score(rd,chosenColour,chosenPosition)){
+                        cout<< name <<", you put roll in your scoresheet"<<endl;
+                        cout<< *sheet <<endl;
+                        break;
+                    }
+                    else{
+                        cout << "Incorrect input, plaese reapeat" << endl;
+                        cout << "If you changed your mind and want to skip the turn input 42";
+                        string fortytwo = "";
+                        cin >> fortytwo;
+                        if(fortytwo == "42") break;
+                    }
+                    }
+//  int choice = -1;   
+//        // rd.roll();//need a colour vector now
+//         ScoreSheet::Color c = choseColor();
+//         cout << "Chose if you want to input score in a row or use fail field" << endl;
+//         cout << "1. Input" << endl;
+//         cout << "2. Fail" << endl; 
+//         choice = inputChecker(1, 2);    
+//     switch (choice)
+//     {
+//         //case where player chose position on the board
+//     case 1:
+//     {
+//         cout << "Choose color and position" << endl;
+//        ScoreSheet::Color c = choseColor();
+//         cout << "Position: " << endl;
+//         int pos = inputChecker(1, 10);
+//         //here should be try and catch if was not able to add into row
+//         //sheet->score(rd, c, pos);
+//     }
+//     break;
 
-        //payer is using fail field
-    case 2:
-    {
-        sheet->addFail();
-    }
-    break;
-    }
+//         //payer is using fail field
+//     case 2:
+//     {
+//         sheet->addFail();
+//     }
+//     break;
+//     }
 
     //or he can chose to use fail field
 }

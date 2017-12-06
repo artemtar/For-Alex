@@ -149,20 +149,22 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 
     //ScoreSheet::print(out);
     // out << *parent << endl;
-    out << "    -------------------------" << endl;
-    out << "    " << red << endl;
-    out << "  -------------------------" << endl;
-    out << "  " << yellow << endl;
-    out << "-------------------------" << endl;
-    out << "" << blue << endl
-        << endl;
-    out << "Failed: ";
+    // out << "        -------------------------------" << endl;
+    // out << "Red         ";
+
+    // out << "    " << red << endl;
+    // out << "  -------------------------" << endl;
+    // out << "  " << yellow << endl;
+    // out << "-------------------------" << endl;
+    // out << "" << blue << endl
+    //     << endl;
+    // out << "Failed: ";
     //for (int i = 0; i < 4; ++i)
     // {
     //     if (*(parent->getFails() + i) != 100) //for debuging change 100 to -1 when finished
     //         cout << *(parent->getFails() + i) << " ";
     // }
-    cout << endl;
+    cout << "Lets imagine that board is printed"<< endl;
     return out;
 }
 //-----End of QwixScoreSheet
