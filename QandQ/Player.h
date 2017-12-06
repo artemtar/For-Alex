@@ -5,11 +5,12 @@
 class Player
 {
 protected:
-  string name;
   bool status = false;
   ScoreSheet* sheet;
 
 public:
+  //data
+  string name;
   //constructor
 
   Player(ScoreSheet*, const string &_name = "");
