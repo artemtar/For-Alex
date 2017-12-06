@@ -17,6 +17,7 @@ struct Dice
     //data
     const ScoreSheet::Color c;
     int face;
+    bool isEnabled;
  
     //constructors
     Dice(ScoreSheet::Color); 
@@ -34,17 +35,21 @@ struct RollOfDice
     RollOfDice(); //!!Warning!! might use two diffrent construct if needed to work with both games
     //methods
 
-    void roll(std::vector<ScoreSheet::Color>);
+    RollOfDice& roll(std::vector<ScoreSheet::Color>);
     
     //to implement for each loop in the RollOf Dices
-    inline auto begin(){return dices.front();};
-    inline auto end(){return dices.back();};
+    std::vector<Dice>::iterator begin();
+    std::vector<Dice>::iterator end();
 
     RollOfDice pair(int, int);
 
     operator int();
     
 };
+
+inline std::vector<Dice>::iterator RollOfDice::begin(){return dices.begin();};
+inline std::vector<Dice>::iterator RollOfDice::end(){return dices.end();}
+
 // printing methods
 string colToStr(ScoreSheet::Color);
 ostream &operator<<(ostream &, const RollOfDice &);

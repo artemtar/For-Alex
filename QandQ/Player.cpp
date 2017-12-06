@@ -3,6 +3,7 @@
 
 
 Player::Player(ScoreSheet* s, const string &_name) : sheet{s}, name{_name} {}
+//Player::Player(const Player& from):name{from.name},status{from.status},sheet{from.sheet}{}
 Player::~Player(){}
 
 
@@ -47,7 +48,7 @@ ScoreSheet::Color QwintoPlayer::choseColor()
 //**Qwinto**
 
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(&qs, _name){}
-//QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//not needed anymore?
+//QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(&from.sheet,from.name){}
 //some stuff to do before input
 void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 {
@@ -93,7 +94,6 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
  std::vector<ScoreSheet::Color> QwintoPlayer::inputBeforeRoll(RollOfDice &rd,int numOfDices)
 {
     std::vector<ScoreSheet::Color> colours;
-
     //get the colours from the user
     for (int i=0;i<numOfDices;i++){
         std::string tempColour;
@@ -105,6 +105,7 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
         else if (tempColour=="2"){colours.push_back(ScoreSheet::Color::YELLOW);}
         else{std::cout<<"Your input is incorrect. Please try again. ";i--;}       
     }
+
 }
 
 //qwinto player ends
