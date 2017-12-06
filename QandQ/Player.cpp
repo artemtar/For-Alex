@@ -3,6 +3,7 @@
 
 
 Player::Player(ScoreSheet* s, const string &_name) : sheet{s}, name{_name} {}
+//Player::Player(const Player& from):name{from.name},status{from.status},sheet{from.sheet}{}
 Player::~Player(){}
 int Player::inputChecker(int boundA, int boundB){
     int choice = -1;        
@@ -49,7 +50,7 @@ bool Player::operator <(const Player& p) {
 //**Qwinto**
 
 QwintoPlayer::QwintoPlayer(QwintoScoreSheet &qs, string _name) : Player(&qs, _name){}
-//QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(from.name),sheet(from.sheet){}//not needed anymore?
+//QwintoPlayer::QwintoPlayer(const QwintoPlayer &from):Player(&from.sheet,from.name){}
 //some stuff to do before input
 void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
 {
@@ -94,6 +95,7 @@ void QwintoPlayer::inputAfterRoll(RollOfDice &rd)
         tempColour = choseColor();
         colours.push_back(tempColour);  
     }
+
 }
 
 //qwinto player ends
