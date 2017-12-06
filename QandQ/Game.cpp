@@ -34,6 +34,7 @@ int main()
     std::cout << " Please input the number of player that you want to have, minimum requerment is 2 : ";
     numOfPlayers = inputCheckerForMain(2, 6); //i think 6 is max
     cout << endl;
+
     vector<Player *> players; //to keep the players
 
     std::cout << " Please input 1 if you want to play Quinto and 2 if you want to play Quixx : ";
@@ -75,20 +76,34 @@ int main()
     }
 
     RollOfDice currentRoll{};
-    //virtual functions work, but does some wierd shit with dices,
-    // too lazy to understand how you wanna to implement it, so uncoment line 88 and do your staff
-    while (true)
-    {
-       for ( auto p : players) {
-            std::cout << "Please input the number of dices do you want to roll?(1,2 or 3) : ";
-            //ask if the player wants to roll 1,2 or 3 dices
-            int currentRollNumOfDices = -1;
-            currentRollNumOfDices = inputCheckerForMain(1, 3);
-            //get the colours of the dices from the user and roll the dices with the selected collour
-            //p->inputBeforeRoll(currentRoll, currentRollNumOfDices);
-        }
-        // std::cout<<currentScore
-        break;//for artem, can remove
+    
+    vector<Player*>::iterator currentPlayer = players.begin();//get the first player
+    
+    while(true){         
+        std::cout<<"The active player is "<<(*currentPlayer)->name<<std::endl;
+        //mark current player as active??
+
+        std::cout<<"Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
+        //ask if the player wants to roll 1,2 or 3 dices
+        int currentRollNumOfDices;
+        std::cin>>currentRollNumOfDices;
+    
+           //get the colours of the dices from the user and roll the dices with the selected collour
+           //
+           // 
+
+        int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
+
+         
+        std::cout<<"The roll gave you "<<currentScore<<" points"<<std::endl;
+       // std::cout<<currentScore;
+        currentPlayer++;
+
+        if(currentPlayer==players.end()){currentPlayer=players.begin();}//if all players made the move get back to first
+       // break;
+
+
+
     }
     //if wrong print all available colours
 

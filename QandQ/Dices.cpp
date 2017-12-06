@@ -13,12 +13,13 @@ int RandomDice::getRandomFace()
 
 //**Dice**
 //constructor
-Dice::Dice(ScoreSheet::Color col) : c(col),isEnabled(true) { roll(); }
+Dice::Dice(ScoreSheet::Color col) : c(col),isEnabled(false) { roll(); }//allsdices disabled by default
+Dice::Dice(const Dice &from): c(from.c),isEnabled(from.isEnabled),face(from.face){}
 // create a dice with random face from 
 void Dice::roll(){face = RandomDice::getRandomFace();}
 
 //**RollOfDice**
-//constructor
+//constructors
 RollOfDice::RollOfDice()
 {
     dices.reserve(6);//different size for qwix and qwinto
@@ -29,12 +30,24 @@ RollOfDice::RollOfDice()
     dices.push_back(yellow);
     dices.push_back(blue);
 }
+RollOfDice::RollOfDice(const RollOfDice &from){
+
+    for (int i=0;i<from.dices.size();i++){
+        cout<<from.dices[i].isEnabled;
+        dices.push_back(from.dices[i]);
+    }
+}//copy construct
+
 //to convert to integer !!!!probably change to constructor that takes one integer
 RollOfDice::operator int()
 {
     int sum = 0;
-    for (auto &d : dices)
-        if (d.isEnabled){sum += d.face;}
+    for (auto& d : dices)
+        if (d.isEnabled){
+            cout<<d.face;
+            sum += d.face;
+            d.isEnabled=false;
+            }
     return sum;
 }
 
@@ -42,15 +55,16 @@ RollOfDice::operator int()
 RollOfDice& RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
 {
     vector<Dice> out;
-    for (auto d : *this){
+    for (auto& d : *this){
         for (auto &colour: selectedColours){
             if (colour==d.c){
                 d.roll();
-                out.push_back(d);
+                d.isEnabled=true;
                 }
-            else {d.isEnabled=false;}
+            //else if {d.isEnabled=false;}
        }
     }
+    
     return *this;
 }
 //qwixx staff
