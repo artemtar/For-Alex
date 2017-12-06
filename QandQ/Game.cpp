@@ -91,7 +91,9 @@ int main()
            //get the colours of the dices from the user and roll the dices with the selected collour
            //
            // 
+
         int currentScore = currentRoll.roll((*currentPlayer)->inputBeforeRoll(currentRoll,currentRollNumOfDices));
+
          
         std::cout<<"The roll gave you "<<currentScore<<" points"<<std::endl;
        // std::cout<<currentScore;
