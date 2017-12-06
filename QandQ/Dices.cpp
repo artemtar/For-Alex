@@ -13,7 +13,7 @@ int RandomDice::getRandomFace()
 
 //**Dice**
 //constructor
-Dice::Dice(ScoreSheet::Color col) : c(col) { roll(); }
+Dice::Dice(ScoreSheet::Color col) : c(col),isEnabled(true) { roll(); }
 // create a dice with random face from 
 void Dice::roll(){face = RandomDice::getRandomFace();}
 
@@ -33,18 +33,25 @@ RollOfDice::RollOfDice()
 RollOfDice::operator int()
 {
     int sum = 0;
-    for (const Dice &d : dices)
-        sum += d.face;
+    for (auto &d : dices)
+        if (d.isEnabled){sum += d.face;}
     return sum;
 }
-//create 3 random dices!!probably change to iterators!!
-void RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
+
+
+RollOfDice& RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
 {
-   // for (auto &d : *this){
-    //    for (auto &colour: selectedColours){
-    //        if (colour==d.c){d.roll;}
-    //    }
- //   }
+    vector<Dice> out;
+    for (auto d : *this){
+        for (auto &colour: selectedColours){
+            if (colour==d.c){
+                d.roll();
+                out.push_back(d);
+                }
+            else {d.isEnabled=false;}
+       }
+    }
+    return *this;
 }
 //qwixx staff
 RollOfDice RollOfDice::pair(int d1, int d2) {}
