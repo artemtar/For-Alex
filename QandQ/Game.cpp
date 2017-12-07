@@ -80,13 +80,14 @@ int main()
 
    // RollOfDice* currentRollPtr = new RollOfDice{};
      RollOfDice currentRoll{};// = *currentRollPtr;
-    
+     bool gameOver;
     //main loop will run till one of the boards is full
     while (1)
     {
-        for (Player *currentPlayer : players)
+        while(true){
+        for (Player *currentPlayer : players)//to get turns of the players;
         {
-            while (true)
+            while (true)//the loop to be in the turn
             {
                 cout << "The active player is " << currentPlayer->name << endl;
                // cout<<(currentPlayer)->getScoreSheet();
@@ -105,16 +106,20 @@ int main()
                // break;//testing
                 cout << "The roll gave " << currentScore << " points. " << endl;
                 
-                if (!ScoreSheet::checkForFail)//danger but should be ok //current board only in thos scope
+                if (!(currentPlayer->sheet->checkForFail(&currentRoll,currentPlayer->sheet)))//danger but should be ok //current board only in thos scope
                 {
                     ScoreSheet* currentboard = currentPlayer->getScoreSheet();
                     cout << *currentboard;
                 //for (Dice& d:currentRoll){if (d.isEnabled){cout<<"foundBEforeAfter";}}//testing
                 //check if not fail
                     currentPlayer->inputAfterRoll(&currentRoll);
+                     if (!(*(currentPlayer->sheet))){break;};//check if get out of the game
                 }
                 else{
-                    cout<<currentPlayer->name<<", you have "<<""<<" fail";
+                    currentPlayer->sheet->num_failed++;
+                    cout<<currentPlayer->name<<", you have "<<currentPlayer->sheet->num_failed<<" fails."<<endl;
+                    //checkif the game ends
+                    if (!(*(currentPlayer->sheet))){break;};//check if get out of the game for 4 fails /CHECKED
                 }
                 for (Player *tempPlayer : players)
                 {
@@ -124,12 +129,16 @@ int main()
                     cout << *tempPlayer; //print the scoresheet of the player we ask if wants to put result in scoresheet
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
                     wantToPutInScoreheet = inputCheckerForMain(0, 1);
-                    if (wantToPutInScoreheet)
-                          
+                    if (wantToPutInScoreheet){tempPlayer->inputAfterRoll(&currentRoll);}
 
-                        tempPlayer->inputAfterRoll(&currentRoll);
+                    if (!(*(tempPlayer->sheet))){currentPlayer = tempPlayer;cout<<"2ndBreak";break;}
                 }
+                
+                break;
             }
+            gameOver = !(*(currentPlayer->sheet));//{cout<<"3rdbreak";break;};
+          }
+          if(gameOver){break;}
         }
         //checking if game is ended
         for (Player *p : players)
@@ -146,5 +155,6 @@ int main()
         sort(players.begin(), players.end(), findWinner);
         Player *winner = players.at(0);
         cout << "The winner is " << winner->name << endl;
+        break;
     }
 }
