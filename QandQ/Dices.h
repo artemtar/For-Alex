@@ -21,7 +21,7 @@ struct Dice
  
     //constructors
     Dice(ScoreSheet::Color); 
-    Dice(const Dice&);
+   // Dice(const Dice&);
 
     //methods
     void roll(); 
@@ -37,7 +37,7 @@ struct RollOfDice
     RollOfDice(const RollOfDice&);
     //methods
 
-    RollOfDice& roll(std::vector<ScoreSheet::Color>);
+    RollOfDice* roll(std::vector<ScoreSheet::Color>);
     
     
     //to implement for each loop in the RollOf Dices

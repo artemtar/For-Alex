@@ -75,13 +75,15 @@ bool QwintoScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice rollOfDic
 
 
 //to check if can put in the position
-bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
+bool QwintoScoreSheet::score(RollOfDice* rd, Color& c, int pos)
 {
     bool colourCondition = false;
     bool positionCondition =false;
 
-    for (auto& d:rd){
-        if ((d.isEnabled)&&(c==d.c)){colourCondition=true;}
+    for (Dice& d:*rd){
+        if ((c==d.c)&&(d.isEnabled)){
+            cout<<"hiTherw";
+            colourCondition=true;}
     }
       //mark the chosen colour
     switch (c){
@@ -91,10 +93,11 @@ bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
     }
 
       //check if position is ok
-    positionCondition = validate(pos,this,rd);
-
+    positionCondition = validate(pos,this,*rd);
+    //cout<<(colourCondition==true)<<"hi"<<(positionCondition==true)<<endl;
     if (colourCondition&&positionCondition){return true;}
     else{return false;}
+    
 }
 int QwintoScoreSheet::calcLine(int a, int b, int c, int val){
     if(a != -1 && b != -1, c != -1) return val;

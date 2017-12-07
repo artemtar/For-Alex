@@ -78,7 +78,9 @@ int main()
     break;
     }
 
-    RollOfDice currentRoll{};
+    RollOfDice* c = new RollOfDice{};
+     RollOfDice currentRoll = *c;
+    
     //main loop will run till one of the boards is full
     while (1)
     {
@@ -96,10 +98,14 @@ int main()
 
                 //get the colours of the dices from the user and roll the dices with the selected collour
 
-                int currentScore = currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
-                cout << "The roll gave " << currentScore << " points: " << endl;
+                int currentScore =*(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
+               
+                for (Dice& d:currentRoll){
+                    if (d.isEnabled){cout<<"found";}
+                }
+                cout << "The roll gave " << currentScore << " points. " << endl;
                 cout << *currentPlayer;
-                currentPlayer->inputAfterRoll(currentRoll);
+                currentPlayer->inputAfterRoll(c);
 
                 for (Player *tempPlayer : players)
                 {
@@ -110,7 +116,7 @@ int main()
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
                     wantToPutInScoreheet = inputCheckerForMain(0, 1);
                     if (wantToPutInScoreheet)
-                        tempPlayer->inputAfterRoll(currentRoll);
+                        tempPlayer->inputAfterRoll(c);
                 }
             }
         }

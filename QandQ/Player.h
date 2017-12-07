@@ -27,7 +27,7 @@ public:
   virtual int inputChecker(int, int);
   virtual inline bool getStatus(){return status;}
   virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) = 0;
-  virtual void inputAfterRoll(RollOfDice &) = 0;
+  virtual void inputAfterRoll(RollOfDice*) = 0;
   //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
   bool operator <(const Player&);
   //bool findWinner(Player*, Player*); looking a place to implement
@@ -51,7 +51,7 @@ public:
    // ScoreSheet::Color choseColor() override;
     //virtual
      std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
-    virtual void inputAfterRoll(RollOfDice &) override;
+    virtual void inputAfterRoll(RollOfDice*) override;
 };
 
 #endif //QWINTOPLAYER
