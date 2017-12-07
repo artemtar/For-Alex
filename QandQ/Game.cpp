@@ -66,7 +66,7 @@ int main()
             cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
             ++count;
         }
-        cout << "out of loop " << count << endl; //this line, and custom distructor helped me to find the bag
+        cout << "LET THE GAMES BEGIN! " << count << endl; //this line, and custom distructor helped me to find the bug
     }
     break;
 
@@ -78,7 +78,9 @@ int main()
     break;
     }
 
-    RollOfDice currentRoll{};
+   // RollOfDice* currentRollPtr = new RollOfDice{};
+     RollOfDice currentRoll{};// = *currentRollPtr;
+    
     //main loop will run till one of the boards is full
     while (1)
     {
@@ -89,17 +91,24 @@ int main()
                 cout << "The active player is " << currentPlayer->name << endl;
                 //mark current player as active??
 
-                cout << "Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
+                cout << "Please input the number of dices you want to roll as a number?(1,2 or 3) : ";
                 //ask if the player wants to roll 1,2 or 3 dices
                 int currentRollNumOfDices = -1;
                 currentRollNumOfDices = inputCheckerForMain(1, 3);
 
                 //get the colours of the dices from the user and roll the dices with the selected collour
 
-                int currentScore = currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
-                cout << "The roll gave " << currentScore << " points: " << endl;
-                cout << *currentPlayer;
-                currentPlayer->inputAfterRoll(currentRoll);
+                int currentScore = *(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
+               
+              
+               // break;
+                cout << "The roll gave " << currentScore << " points. " << endl;
+                
+                ScoreSheet* currentboard = currentPlayer->getScoreSheet();
+                cout << *currentboard;
+                //for (Dice& d:currentRoll){if (d.isEnabled){cout<<"foundBEforeAfter";}}//testing
+                //check if not fail
+                currentPlayer->inputAfterRoll(&currentRoll);
 
                 for (Player *tempPlayer : players)
                 {
@@ -110,7 +119,9 @@ int main()
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
                     wantToPutInScoreheet = inputCheckerForMain(0, 1);
                     if (wantToPutInScoreheet)
-                        tempPlayer->inputAfterRoll(currentRoll);
+                          
+
+                        tempPlayer->inputAfterRoll(&currentRoll);
                 }
             }
         }

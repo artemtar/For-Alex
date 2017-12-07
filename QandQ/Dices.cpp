@@ -33,7 +33,7 @@ RollOfDice::RollOfDice()
 RollOfDice::RollOfDice(const RollOfDice &from){
 
     for (int i=0;i<from.dices.size();i++){
-        cout<<from.dices[i].isEnabled;
+        cout<<"copyROllOFDices"<<from.dices[i].isEnabled;
         dices.push_back(from.dices[i]);
     }
 }//copy construct
@@ -46,26 +46,31 @@ RollOfDice::operator int()
         if (d.isEnabled){
            // cout<<d.face;//testing random roll
             sum += d.face;
-            d.isEnabled=false;
+          //  d.isEnabled=false;//probably bug
             }
     return sum;
 }
 
 
-RollOfDice& RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
+RollOfDice* RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
 {
+    //clean the dices
+    for (auto& d: *this){
+        d.isEnabled=false;
+    }
+    //roll the Dices of chosen colour
     vector<Dice> out;
-    for (auto& d : *this){
-        for (auto &colour: selectedColours){
+    for (Dice& d : *this){
+        for (ScoreSheet::Color &colour: selectedColours){
             if (colour==d.c){
                 d.roll();
                 d.isEnabled=true;
-                }
-            //else if {d.isEnabled=false;}
+            }
        }
     }
     
-    return *this;
+    //for(auto& d:*this){cout<<"rolling"<<d.isEnabled;}//testing
+    return this;
 }
 //qwixx staff
 RollOfDice RollOfDice::pair(int d1, int d2) {}
