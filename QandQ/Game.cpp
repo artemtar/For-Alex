@@ -89,6 +89,7 @@ int main()
             while (true)
             {
                 cout << "The active player is " << currentPlayer->name << endl;
+               // cout<<(currentPlayer)->getScoreSheet();
                 //mark current player as active??
 
                 cout << "Please input the number of dices you want to roll as a number?(1,2 or 3) : ";
@@ -100,20 +101,25 @@ int main()
 
                 int currentScore = *(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
                
-              
-               // break;
+                
+               // break;//testing
                 cout << "The roll gave " << currentScore << " points. " << endl;
                 
-                ScoreSheet* currentboard = currentPlayer->getScoreSheet();
-                cout << *currentboard;
+                if (!ScoreSheet::checkForFail)//danger but should be ok //current board only in thos scope
+                {
+                    ScoreSheet* currentboard = currentPlayer->getScoreSheet();
+                    cout << *currentboard;
                 //for (Dice& d:currentRoll){if (d.isEnabled){cout<<"foundBEforeAfter";}}//testing
                 //check if not fail
-                currentPlayer->inputAfterRoll(&currentRoll);
-
+                    currentPlayer->inputAfterRoll(&currentRoll);
+                }
+                else{
+                    cout<<currentPlayer->name<<", you have "<<""<<" fail";
+                }
                 for (Player *tempPlayer : players)
                 {
                     if (tempPlayer == currentPlayer)
-                        continue;
+                        continue;//?????
                     bool wantToPutInScoreheet = -1;
                     cout << *tempPlayer; //print the scoresheet of the player we ask if wants to put result in scoresheet
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";

@@ -66,15 +66,46 @@ bool QwintoScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice* rollOfDi
 
     QwintoScoreSheet* qwintoSheet=dynamic_cast<QwintoScoreSheet*> (sheet);
 
-    if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,*rollOfDices);}
+    if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,*rollOfDices);}//convering RollOfDices to int
     else if ((*qwintoSheet).yellow.chosen){out = (*qwintoSheet).yellow.validate(index,*rollOfDices);}
     else if((*qwintoSheet).blue.chosen){out = (*qwintoSheet).blue.validate(index,*rollOfDices);}
+
+
+    //clean up //make the rows unchosen again
+    (*qwintoSheet).red.chosen=false;
+    (*qwintoSheet).yellow.chosen=false;
+    (*qwintoSheet).blue.chosen=false;
+
     return true;
 }
 
+bool QwintoScoreSheet::checkForFail(RollOfDice* rollOfDice,ScoreSheet* scoreSheet){
+    bool redCondition=false;
+    bool yellowCondition=false;
+    bool blueCondition=false;
+
+    QwintoScoreSheet* qwintoSheet=dynamic_cast<QwintoScoreSheet*> (scoreSheet);
+
+    for (int i=1;i<10;i++){ 
+       qwintoSheet->red.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+       qwintoSheet->yellow.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+       qwintoSheet->blue.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+
+       //if found a place
+       if (redCondition){break;}
+       if (yellowCondition){break;}
+       if (blueCondition){break;}
+    }
+    
+
+    return redCondition||yellowCondition||blueCondition;
+}
 
 //to check if can put in the position
-bool QwintoScoreSheet::score(RollOfDice* rd, Color& c, int pos)
+bool QwintoScoreSheet::score(RollOfDice* rd, ScoreSheet::Color c, int pos)
 {
     bool colourCondition = false;
     bool positionCondition =false;
@@ -255,11 +286,11 @@ cout << endl;
 
 //-----End of QwixScoreSheet
 
-int main()
-{
-    //testing
+// int main()
+// {
+//     //testing
 
-QwintoScoreSheet q("Name");
-ScoreSheet& p = q;
-cout << p;
-}
+// QwintoScoreSheet q("Name");
+// ScoreSheet& p = q;
+// cout << p;
+// }

@@ -48,7 +48,8 @@ public:
   void addFail();
   virtual bool operator!();
   friend ostream &operator<<(ostream &, const ScoreSheet &);
-  virtual bool score(RollOfDice, ScoreSheet::Color, int pos = -1) = 0;
+  virtual bool score(RollOfDice*, ScoreSheet::Color, int pos = -1) = 0;
+  virtual bool checkForFail(RollOfDice*,ScoreSheet*)=0;
   virtual ostream &print(ostream &) const = 0;
   int setTotal();
   virtual int calcTotal() = 0;
@@ -230,9 +231,9 @@ public:
   QwintoScoreSheet(string name);                  //moved inside initializetion list//, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
   QwintoScoreSheet(const QwintoScoreSheet &from); //Aleks made copy constructor
                                                   //methods
-  bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
-
-  bool validate(int, ScoreSheet *, RollOfDice);
+  bool score(RollOfDice*, ScoreSheet::Color, int pos = -1) override;
+  bool validate(int, ScoreSheet*, RollOfDice*)override;
+  bool checkForFail(RollOfDice*,ScoreSheet*);
 
   int calcTotal() override;
   bool operator!() override;
@@ -259,8 +260,9 @@ public:
   QwixScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>, QwintoRow<GREEN>);
   //functions
 
-  bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
-  virtual bool validate(int, ScoreSheet *, RollOfDice);
+  bool score(RollOfDice*, ScoreSheet::Color, int pos = -1) override;
+  bool checkForFail(RollOfDice*,ScoreSheet*) override;
+  virtual bool validate(int, ScoreSheet *, RollOfDice*);
   int calcHelper(int);
   int calcTotal() override;
   bool operator!() override;

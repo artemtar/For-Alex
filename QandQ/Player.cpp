@@ -61,13 +61,15 @@ QwintoPlayer::QwintoPlayer(QwintoScoreSheet* qs, string _name) : Player(qs, _nam
 void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
 {
                     while(true){
-                        int chosenColourNum;
+                        int chosenColourNum =-1;
                         cout << name << ", what is the colour of the row you want to put the roll in? ";
                         ScoreSheet::Color chosenColour = choseColor();
                         
-                        int chosenPosition;
+                        int chosenPosition = -1;
                         cout<<name << ", what is the position in the row you want to put the roll in? ";
-                        cin>>chosenPosition;
+                        //check if position is in the range
+                        chosenPosition = inputChecker(1,10);
+                        //cin>>chosenPosition;
 
                         if (sheet->score(rd,chosenColour,chosenPosition)){
                             cout<< name <<", you put roll in your scoresheet"<<endl;
