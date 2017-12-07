@@ -36,6 +36,7 @@ int main()
     cout << "Please chose game" << endl;
     cout << "1. Qwinto" << endl;
     cout << "2. Qwixx" << endl;
+    cout << "Input: ";
     gameVersion = inputCheckerForMain(1, 2);
     //get Number Of Players
     int numOfPlayers = -1;
@@ -72,7 +73,26 @@ int main()
 
     case 2:
     {
-        //creating qwixx players
+        //locks for board in all players
+        int *locks = new int[4];
+        for (int i = 0; i < 4; ++i){
+        *(locks + i) = 0;
+        }
+        int count = 0;
+         for (int i = 0; i < numOfPlayers; i++)
+        {
+            string tempName;
+            cout << "What is the name of the player " << i + 1 << ": ";
+            cin >> tempName;
+            cout << endl;
+            QwixScoreSheet *tempScoreSheet = new QwixScoreSheet{tempName, locks};
+            Player *tempPlayer = new QwixPlayer{tempScoreSheet, tempName};
+            players.push_back(tempPlayer);
+            cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
+            ++count;
+        }
+        cout << "out of loop " << count << endl; //this line, and custom distructor helped me to find the bag
+    
     }
 
     break;

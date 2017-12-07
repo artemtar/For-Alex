@@ -47,8 +47,6 @@ public:
     QwintoPlayer(QwintoScoreSheet*, string _name);
     QwintoPlayer(const QwintoPlayer &from);
     ~QwintoPlayer();//for debuging
-  //functions
-   // ScoreSheet::Color choseColor() override;
     //virtual
      std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
     virtual void inputAfterRoll(RollOfDice*) override;
@@ -59,14 +57,13 @@ public:
 #ifndef QWIXPLAYER
 #define QWIXPLAYER
 
-// class QwixPlayer : public Player
-// {
+class QwixPlayer : public Player
+{
 
-// public:
-//   ScoreSheet::Color choseColor() override;
-//   //QwixPlayer(QwixScoreSheet &, string _name); // compile complain
-//   virtual void inputBeforeRoll(RollOfDice &) override;
-//   virtual void inputAfterRoll(RollOfDice &) override;
-// };
+public:
+  QwixPlayer(QwixScoreSheet*, string _name); // compile complain
+  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
+  virtual void inputAfterRoll(RollOfDice &) override;
+};
 
 #endif //QWIXPLAYER

@@ -107,40 +107,20 @@ void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
 //qwinto player ends
 
 //qwixplayer intitialization
-//QwixPlayer::QwixPlayer(QwixScoreSheet &qs, string _name) : Player(_name), sheet{qs} {}
-// void QwixPlayer::inputBeforeRoll(RollOfDice &rd)
-// {
-//     if (getStatus())
-//     {
-//     }
-//     else
-//     {
-//     }
-// }
-// void QwixPlayer::inputAfterRoll(RollOfDice &rd)
-// {
-//     if (getStatus())
-//     {
-//     }
-//     else
-//     {
-//     }
-// }
+QwixPlayer::QwixPlayer(QwixScoreSheet* qs, string _name) : Player(qs, _name){}
+ std::vector<ScoreSheet::Color> QwixPlayer::inputBeforeRoll(RollOfDice &rd, int whateveralexwhants)
+{
+
+}
+void QwixPlayer::inputAfterRoll(RollOfDice &rd)
+{
+
+}
 //qwixpalyer ends
 
 // int main()
 // {
-//     QwintoRow<ScoreSheet::Color::RED> qr;
-//     QwintoRow<ScoreSheet::Color::YELLOW> qy;
-//     QwintoRow<ScoreSheet::Color::BLUE> qb;
-//     RollOfDice r;
-//     cout << r << "roled" << endl;
-//     qr[2] = r;
-//     QwintoScoreSheet qs("Artem", qr, qy, qb);
-//     ScoreSheet &parent = qs;
-//     cout << parent;
-//     r.roll();
-//     parent.score(r, ScoreSheet::Color::RED, 5);
-//     cout << parent;
-//     QwintoPlayer Artem(qs,"Artem");
+//     QwixScoreSheet s("Artem");
+//     QwixPlayer p(&s, "Artem");
+
 // }
