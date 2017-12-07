@@ -21,7 +21,9 @@ private:
 protected:
   //data
   string name_player;
-  int num_failed[4];
+
+  
+  //int num_failed[4];
   //functions
 
   virtual bool validate(int,ScoreSheet*,RollOfDice*) = 0; 
@@ -30,6 +32,8 @@ protected:
 
 public:
   //data
+  int num_failed;//change to next line to get to the array
+
   enum Color
   {
     RED,
@@ -65,7 +69,7 @@ template <const ScoreSheet::Color C>
 class QwintoRow
 {
 private:
-  int row[10];
+  int row[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};//changed for testing
 
 public:
   bool validate(int, int);
