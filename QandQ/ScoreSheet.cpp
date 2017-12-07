@@ -249,6 +249,7 @@ bool QwintoScoreSheet::operator!()
 ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
 {
     return qss.print(os);
+    os << endl;
 }
 ostream &QwintoScoreSheet::print(ostream &out) const
 {
@@ -270,11 +271,26 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 
 //-----Initialization of QwixScoreSheet
 
-int QwixScoreSheet::calcHelper(int i)
-{
-    if (i == 1)
-    {
-        return 1;
+
+
+
+
+
+
+
+
+
+
+
+
+QwixScoreSheet::QwixScoreSheet(string name, int* locks): ScoreSheet(name), player_locks{locks}{}
+bool QwixScoreSheet::score(RollOfDice rd, Color c, int pos){}
+bool QwixScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice rollOfDices){}
+
+int QwixScoreSheet::calcHelper(int i){
+    if (i == 1){
+    return 1;
+
     }
     else
     {
@@ -290,27 +306,21 @@ int QwixScoreSheet::calcTotal()
 
     int total = 0;
     //if rows are filled count
-    // int fails = 0;
-    // for (int i = 0; i < 3; ++i)
-    // {
-    //     if (num_failed[i] != -1)
-    //         fails += 1;
-    // }
 
-    return total - 5 * this->num_failed;
+
+
+    return total;
 }
 bool QwixScoreSheet::operator!()
 {
-    // if (num_failed[3] != 4)
-    // return true;
-
-    int lock = 0; //Warning check fails
-    for (int a : locks)
-    {
-        lock += a;
-    }
-    if (lock < 3)
+    if (num_failed[3] != 4)
         return true;
+    int locks = 0;
+    for (int i = 0; i < 4; --i){
+        locks += *(player_locks + i);
+    }
+    if(locks < 2) return true;
+
     //checking if two rows are full
 
     else
@@ -320,26 +330,38 @@ bool QwixScoreSheet::operator!()
 ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 {
     return qss.print(os);
+    os << endl;
 }
 
 //
 ostream &QwixScoreSheet::print(ostream &out) const
 {
 
-    cout << endl;
-    out << "\t\t-------------------------------" << endl;
+
+
+cout << endl;
+    out << "\t\t----------------------------------" << endl;
     out << "\tRed";
-    // out << "\t\t" << red << endl;
-    out << "\t\t-------------------------------" << endl;
+    out << "\t" << red;
+    if(*player_locks == 0) out << " U" << endl;
+    else out << " L"<< endl;
+    out << "\t\t----------------------------------" << endl;
     out << "\tYellow";
-    // out << "\t\t" << red << endl;
-    out << "\t\t-------------------------------" << endl;
+    out << "\t" << yellow;
+    if(*player_locks == 0) out << " U" << endl;
+    else out << " L"<< endl;
+    out << "\t\t----------------------------------" << endl;
     out << "\tGreen";
-    //   out << "       " << yellow << endl;
-    out << "\t\t-------------------------------" << endl;
+    out << "\t" << green;
+    if(*player_locks == 0) out << " U" << endl;
+    else out << " L"<< endl;
+    out << "\t\t----------------------------------" << endl;
     out << "\tBlue";
-    //  out << "      " << blue << endl;
-    out << "\t\t-------------------------------" << endl;
+    out << "\t" << blue;
+    if(*player_locks == 0) out << " U" << endl;
+    else out << " L"<< endl;
+    out << "\t\t----------------------------------" << endl;  
+
     return out;
 }
 
@@ -347,9 +369,16 @@ ostream &QwixScoreSheet::print(ostream &out) const
 
 // int main()
 // {
-//     //testing
+ 
+//     int *locks = new int[4];
+//         for (int i = 0; i < 4; ++i){
+//         *(locks + i) = 0;
+//     }
 
-// QwintoScoreSheet q("Name");
-// ScoreSheet& p = q;
-// cout << p;
+//     QwixScoreSheet q("Artem", locks);
+//     ScoreSheet* s = &q;
+//     cout << *s;
+
+
+
 // }
