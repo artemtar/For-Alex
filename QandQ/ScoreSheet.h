@@ -23,7 +23,10 @@ protected:
   string name_player;
   int num_failed[4];
   //functions
-  virtual bool validate(int, ScoreSheet *, RollOfDice) = 0;
+
+  virtual bool validate(int,ScoreSheet*,RollOfDice*) = 0; 
+    
+
 
 public:
   //data
@@ -41,6 +44,7 @@ public:
   virtual ~ScoreSheet();
   //functions
 
+
   void addFail();
   virtual bool operator!();
   friend ostream &operator<<(ostream &, const ScoreSheet &);
@@ -49,6 +53,7 @@ public:
   int setTotal();
   virtual int calcTotal() = 0;
   inline int getScore() { return overallScore; }
+
 };
 #endif //SCORESHEET
 
@@ -221,6 +226,7 @@ private:
 
 public:
   //constructors
+
   QwintoScoreSheet(string name);                  //moved inside initializetion list//, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>);
   QwintoScoreSheet(const QwintoScoreSheet &from); //Aleks made copy constructor
                                                   //methods
@@ -233,6 +239,7 @@ public:
   ostream &print(ostream &) const override;
   //friends
   friend ostream &operator<<(ostream &, const QwintoScoreSheet &);
+
 };
 #endif //QWINTOSCORESHEET
 
@@ -251,6 +258,7 @@ public:
   //constructors
   QwixScoreSheet(string, QwintoRow<RED>, QwintoRow<YELLOW>, QwintoRow<BLUE>, QwintoRow<GREEN>);
   //functions
+
   bool score(RollOfDice, ScoreSheet::Color, int pos = -1) override;
   virtual bool validate(int, ScoreSheet *, RollOfDice);
   int calcHelper(int);
@@ -259,5 +267,6 @@ public:
   ostream &print(ostream &) const override;
   //friends
   friend ostream &operator<<(ostream &, const QwixScoreSheet &);
+
 };
 #endif //QWIXSCORESHEE
