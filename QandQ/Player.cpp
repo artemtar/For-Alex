@@ -67,9 +67,8 @@ void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
                         
                         int chosenPosition;
                         cout<<name << ", what is the position in the row you want to put the roll in? ";
-                        cin>>chosenPosition;   
-                        //chosenPosition=inputChecker(1,12);
-                        cout<<"hi";
+                        cin>>chosenPosition;
+
                         if (sheet->score(rd,chosenColour,chosenPosition)){
                             cout<< name <<", you put roll in your scoresheet"<<endl;
                             cout<< *sheet <<endl;

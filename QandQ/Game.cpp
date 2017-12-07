@@ -78,8 +78,8 @@ int main()
     break;
     }
 
-    RollOfDice* c = new RollOfDice{};
-     RollOfDice currentRoll = *c;
+    RollOfDice* currentRollPtr = new RollOfDice{};
+     RollOfDice currentRoll = *currentRollPtr;
     
     //main loop will run till one of the boards is full
     while (1)
@@ -91,7 +91,7 @@ int main()
                 cout << "The active player is " << currentPlayer->name << endl;
                 //mark current player as active??
 
-                cout << "Please input the number of dices do you want to roll as a number?(1,2 or 3) : ";
+                cout << "Please input the number of dices you want to roll as a number?(1,2 or 3) : ";
                 //ask if the player wants to roll 1,2 or 3 dices
                 int currentRollNumOfDices = -1;
                 currentRollNumOfDices = inputCheckerForMain(1, 3);
@@ -100,14 +100,16 @@ int main()
 
                 int currentScore = *(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
                
-                for (Dice& d:currentRoll){
-                    if (d.isEnabled){cout<<"found";}
-                }
+              
                // break;
                 cout << "The roll gave " << currentScore << " points. " << endl;
                 
                 cout << *currentPlayer;
-                currentPlayer->inputAfterRoll(c);
+                for (Dice& d:currentRoll){
+                             if (d.isEnabled){cout<<"foundBEforeAfter";}
+                          }
+                //check if not fail
+                currentPlayer->inputAfterRoll(&currentRoll);
 
                 for (Player *tempPlayer : players)
                 {
@@ -118,7 +120,9 @@ int main()
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
                     wantToPutInScoreheet = inputCheckerForMain(0, 1);
                     if (wantToPutInScoreheet)
-                        tempPlayer->inputAfterRoll(c);
+                          
+
+                        tempPlayer->inputAfterRoll(&currentRoll);
                 }
             }
         }

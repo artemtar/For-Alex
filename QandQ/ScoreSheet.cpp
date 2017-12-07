@@ -81,7 +81,7 @@ bool QwintoScoreSheet::score(RollOfDice* rd, Color& c, int pos)
     bool positionCondition =false;
 
     for (Dice& d:*rd){
-        if (c==d.c){
+        if ((c==d.c)&&(d.isEnabled)){
             cout<<"hiTherw";
             colourCondition=true;}
     }
