@@ -9,27 +9,29 @@ QwintoRow<C>::QwintoRow()
 }
 
 template <const ScoreSheet::Color C>
-bool QwintoRow<C>::validate(int index)
+bool QwintoRow<C>::validate(int index,int value)
 {
-    //out of range
-    if (index > 10 || index < 0)
-        return false;
-    //has input already
-    else if (row[index] != -1)
-        return false;
-    else
-        return true;
+    //conditions for wrong place 
+    if (row[index]!=-1){return false;}
+
+       for (int i=index-1;(i<index)&&(i>=0);i--){
+           if (row[i]>value){return false;}
+       }
+       for (int i=index+1;i<10;i++){
+           if ((row[i]!=-1)&&(row[i]<value)){return false;}
+       }
+    return true;   
 }
 //have to decide how to return nothing if not passing validate
 template <const ScoreSheet::Color C>
 int &QwintoRow<C>::operator[](int index)
 {
     //
-    if (validate(index))
-        return row[index];
+   // if (validate(index))
+        return row[index];//guy said no throwing here
     //if cannot insert return -1 for error check
-    else
-        throw;//not sure if correct, check latter
+   // else
+        //throw;//not sure if correct, check latter
 
 }
 //returns true if row is full
