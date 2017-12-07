@@ -22,7 +22,7 @@ class ScoreSheet
   string name_player;
   int num_failed[4];
   //functions
-  virtual bool validate(int,ScoreSheet*,RollOfDice) = 0; 
+  virtual bool validate(int,ScoreSheet*,RollOfDice*) = 0; 
     
 
   public:
@@ -150,7 +150,7 @@ class QwintoScoreSheet : public ScoreSheet
   //methods
     bool score(RollOfDice*, ScoreSheet::Color&, int pos = -1) override;
 
-    bool validate(int,ScoreSheet*,RollOfDice);
+    bool validate(int,ScoreSheet*,RollOfDice*);
 
     int calcTotal() override;
     bool operator!() override;

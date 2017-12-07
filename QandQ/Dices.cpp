@@ -14,7 +14,7 @@ int RandomDice::getRandomFace()
 //**Dice**
 //constructor
 Dice::Dice(ScoreSheet::Color col) : c(col),isEnabled(false) { roll(); }//allsdices disabled by default
-//Dice::Dice(const Dice &from): c(from.c),isEnabled(from.isEnabled),face(from.face){}
+Dice::Dice(const Dice &from): c(from.c),isEnabled(from.isEnabled),face(from.face){}
 // create a dice with random face from 
 void Dice::roll(){face = RandomDice::getRandomFace();}
 
@@ -33,7 +33,7 @@ RollOfDice::RollOfDice()
 RollOfDice::RollOfDice(const RollOfDice &from){
 
     for (int i=0;i<from.dices.size();i++){
-        cout<<from.dices[i].isEnabled;
+        cout<<"copyROllOFDices"<<from.dices[i].isEnabled;
         dices.push_back(from.dices[i]);
     }
 }//copy construct
@@ -46,7 +46,7 @@ RollOfDice::operator int()
         if (d.isEnabled){
            // cout<<d.face;//testing random roll
             sum += d.face;
-            d.isEnabled=false;
+          //  d.isEnabled=false;//probably bug
             }
     return sum;
 }
@@ -65,6 +65,7 @@ RollOfDice* RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
        }
     }
     
+    for(auto& d:*this){cout<<"rolling"<<d.isEnabled;}
     return this;
 }
 //qwixx staff

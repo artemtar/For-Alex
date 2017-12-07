@@ -66,7 +66,7 @@ int main()
             cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
             ++count;
         }
-        cout << "out of loop " << count << endl; //this line, and custom distructor helped me to find the bag
+        cout << "LET THE GAMES BEGIN! " << count << endl; //this line, and custom distructor helped me to find the bag
     }
     break;
 
@@ -98,12 +98,14 @@ int main()
 
                 //get the colours of the dices from the user and roll the dices with the selected collour
 
-                int currentScore =*(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
+                int currentScore = *(currentRoll.roll(currentPlayer->inputBeforeRoll(currentRoll,currentRollNumOfDices)));//currentPlayer.roll(currentPlayer->inputBeforeRoll(currentRoll, currentRollNumOfDices));
                
                 for (Dice& d:currentRoll){
                     if (d.isEnabled){cout<<"found";}
                 }
+               // break;
                 cout << "The roll gave " << currentScore << " points. " << endl;
+                
                 cout << *currentPlayer;
                 currentPlayer->inputAfterRoll(c);
 

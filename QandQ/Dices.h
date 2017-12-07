@@ -21,7 +21,7 @@ struct Dice
  
     //constructors
     Dice(ScoreSheet::Color); 
-   // Dice(const Dice&);
+    Dice(const Dice&);
 
     //methods
     void roll(); 
