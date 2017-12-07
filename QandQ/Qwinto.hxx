@@ -2,9 +2,48 @@ static int DEFAULT_ELEMENT = -1;
 template <const ScoreSheet::Color C>
 QwintoRow<C>::QwintoRow()
 {
-    for (int i = 0; i < 10; ++i)
+    if (C == ScoreSheet::Color::RED)///CHANGED FOR TESTING DANGER
     {
-        row[i] = -1;
+        for (int i = 0; i < 10; ++i)
+        {
+            if (i == 3)
+            {
+                row[i] == -2;
+            } //-2 stands for the XX on the board
+            else
+            {
+                row[i] = -1;
+            }
+        }
+    }
+    else if (C == ScoreSheet::Color::YELLOW)//CHANGED FOR TESTING
+    {
+        for (int i = 0; i < 10; ++i)
+        {
+            if (i == 5)
+            {
+                row[i] == -2;
+            }
+            else
+            {
+                row[i] = -1;
+            }
+        }
+      //  row[9]=10;
+    }
+    else if (C == ScoreSheet::Color::BLUE)
+    {
+        for (int i = 0; i < 10; ++i)
+        {
+            if (i == 4)
+            {
+                row[i] == -2;
+            }
+            else
+            {
+                row[i] = -1;
+            }
+        }
     }
 }
 
@@ -12,30 +51,36 @@ template <const ScoreSheet::Color C>
 bool QwintoRow<C>::validate(int index, int value)
 {
 
-     index--;//get the array index
+    index--; //get the array index
+
     //conditions for wrong place
+
     if (row[index] != -1)
     {
+       // cout<<"br1"<<" "<<row[index]<<"val"<<value<<endl;
         return false;
     }
-
-    for (int i = index - 1; (i < index) && (i >= 0); i--)
+    if (index != 0)
     {
-        if (row[i] > value)
+        for (int i = index - 1; i >= 0; i--)
         {
-            return false;
+            if (row[i] > value)
+            {
+              //  cout<<"br2";
+                return false;
+            }
         }
     }
     for (int i = index + 1; i < 10; i++)
     {
-        if ((row[i] != -1) && (row[i] < value))
+        if ((row[i]>0) && (row[i] < value))
         {
+            // cout<<"br3";
             return false;
         }
     }
-    row[index]=value;
-    return true;
 
+    return true;
 }
 //have to decide how to return nothing if not passing validate
 template <const ScoreSheet::Color C>
@@ -56,9 +101,9 @@ bool QwintoRow<C>::isFull()
     for (int i = 0; i < 10; ++i)
     {
         if (row[i] != -1)
-            ++count;
+            count++;//changed WArning! was ++c
     }
-    if (count == 9)
+    if (count == 10)
         return true;
     else
         return false;
