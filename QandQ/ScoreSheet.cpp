@@ -67,9 +67,9 @@ bool QwintoScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice* rollOfDi
 
     QwintoScoreSheet* qwintoSheet=dynamic_cast<QwintoScoreSheet*> (sheet);
 
-    //if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,rollOfDices);}
-    //else if ((*qwintoSheet).yellow.chosen){out = (*qwintoSheet).yellow.validate(index,rollOfDices);}
-    //else if((*qwintoSheet).blue.chosen){out = (*qwintoSheet).blue.validate(index,rollOfDices);}
+    if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,*rollOfDices);}
+    else if ((*qwintoSheet).yellow.chosen){out = (*qwintoSheet).yellow.validate(index,*rollOfDices);}
+    else if((*qwintoSheet).blue.chosen){out = (*qwintoSheet).blue.validate(index,*rollOfDices);}
     return true;
 }
 
@@ -82,7 +82,6 @@ bool QwintoScoreSheet::score(RollOfDice* rd, Color& c, int pos)
 
     for (Dice& d:*rd){
         if ((c==d.c)&&(d.isEnabled)){
-            cout<<"hiTherw";
             colourCondition=true;}
     }
       //mark the chosen colour

@@ -66,7 +66,7 @@ int main()
             cout << "Player " << i + 1 << " with name : " << tempName << " is created." << endl;
             ++count;
         }
-        cout << "LET THE GAMES BEGIN! " << count << endl; //this line, and custom distructor helped me to find the bag
+        cout << "LET THE GAMES BEGIN! " << count << endl; //this line, and custom distructor helped me to find the bug
     }
     break;
 
@@ -78,8 +78,8 @@ int main()
     break;
     }
 
-    RollOfDice* currentRollPtr = new RollOfDice{};
-     RollOfDice currentRoll = *currentRollPtr;
+   // RollOfDice* currentRollPtr = new RollOfDice{};
+     RollOfDice currentRoll{};// = *currentRollPtr;
     
     //main loop will run till one of the boards is full
     while (1)
@@ -104,10 +104,9 @@ int main()
                // break;
                 cout << "The roll gave " << currentScore << " points. " << endl;
                 
-                cout << *currentPlayer;
-                for (Dice& d:currentRoll){
-                             if (d.isEnabled){cout<<"foundBEforeAfter";}
-                          }
+                ScoreSheet* currentboard = currentPlayer->getScoreSheet();
+                cout << *currentboard;
+                //for (Dice& d:currentRoll){if (d.isEnabled){cout<<"foundBEforeAfter";}}//testing
                 //check if not fail
                 currentPlayer->inputAfterRoll(&currentRoll);
 

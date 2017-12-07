@@ -54,6 +54,11 @@ RollOfDice::operator int()
 
 RollOfDice* RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
 {
+    //clean the dices
+    for (auto& d: *this){
+        d.isEnabled=false;
+    }
+    //roll the Dices of chosen colour
     vector<Dice> out;
     for (Dice& d : *this){
         for (ScoreSheet::Color &colour: selectedColours){
@@ -61,11 +66,10 @@ RollOfDice* RollOfDice::roll(std::vector<ScoreSheet::Color> selectedColours)
                 d.roll();
                 d.isEnabled=true;
             }
-            //else if {d.isEnabled=false;}
        }
     }
     
-    for(auto& d:*this){cout<<"rolling"<<d.isEnabled;}
+    //for(auto& d:*this){cout<<"rolling"<<d.isEnabled;}//testing
     return this;
 }
 //qwixx staff

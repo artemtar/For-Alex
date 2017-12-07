@@ -75,8 +75,8 @@ void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
                             break;
                         }
                         else{
-                            cout << "Incorrect input, plaese repeat" << endl;
-                            cout << "If you changed your mind and want to skip the turn input 42";
+                            cout << "Incorrect input, plaese repeat. " << endl;
+                            cout << "If you changed your mind and want to skip the turn input 42. ";
                             string fortytwo;
                             cin >> fortytwo;
                             if(fortytwo == "42") break;
