@@ -36,21 +36,20 @@ int ScoreSheet::setTotal(){
 bool ScoreSheet::operator!()
 {cout << "this line should not appeatr";}
 
-//not used dnow
-
-// void ScoreSheet::print(ostream &os){
-//     os << name_player;
-//     return os;
-// }
-
 //to print out ScoreSheet
 ostream &operator<<(ostream &out, const ScoreSheet &s)
 {
-    out << s.name_player;
+    out << endl;
+    out << "\tPlayer's Name: " << s.name_player << endl;
     s.print(out);
+    cout << endl;
+    cout << "\tFails: "; 
+    int count = 1;
     for (auto i : s.num_failed)
     {
-        out << i << " ";
+        if (i == -1) break;
+        else out << count << " ";
+        ++count;
     }
     return out << endl;
 }
@@ -152,34 +151,81 @@ ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
 {
     return qss.print(os);
 }
-//chenge design
 ostream &QwintoScoreSheet::print(ostream &out) const
 {
 
-    //ScoreSheet::print(out);
-    // out << *parent << endl;
-    // out << "        -------------------------------" << endl;
-    // out << "Red         ";
 
-    // out << "    " << red << endl;
-    // out << "  -------------------------" << endl;
-    // out << "  " << yellow << endl;
-    // out << "-------------------------" << endl;
-    // out << "" << blue << endl
-    //     << endl;
-    // out << "Failed: ";
-    //for (int i = 0; i < 4; ++i)
-    // {
-    //     if (*(parent->getFails() + i) != 100) //for debuging change 100 to -1 when finished
-    //         cout << *(parent->getFails() + i) << " ";
-    // }
-    cout << "Lets imagine that board is printed"<< endl;
+cout << endl;
+    out << "\t\t\t-------------------------------" << endl;
+    out << "\tRed";
+    out << "\t\t" << red << endl;
+    out << "\t\t     -------------------------------" << endl;
+    out << "\tYellow";
+    out << "       " << yellow << endl;
+    out << "\t\t    -------------------------------" << endl;
+    out << "\tBlue";
+    out << "      " << blue << endl;
+    out << "\t\t  -------------------------------" << endl;   
     return out;
 }
-//-----End of QwixScoreSheet
+//-----End of QwintoScoreSheet
+
 
 //-----Initialization of QwixScoreSheet
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+int QwixScoreSheet::calcHelper(int i){
+    if (i == 1){
+    return 1;
+    }
+    else{
+    int result = 0;
+    result += calcHelper(i - 1) + i;
+    //cout << result;
+    return result;
+    }
+}
+
+int QwixScoreSheet::calcTotal()
+{
+
+int total = 0;
+    //if rows are filled count
+    int fails = 0;
+    for (int i = 0; i < 3; ++i)
+    {
+        if (num_failed[i] != -1)
+            fails += 1;
+    }
+
+    return total - 5 * fails;
+}
+bool QwixScoreSheet::operator!()
+{
+    if (num_failed[3] != 4)
+        return true;
+    int lock = 0;
+    for (int a : locks){
+        lock += a;
+    }
+    if(lock < 3) return true;
+    //checking if two rows are full
+        
+    else
+        return false;
+}
 //to put on the stream
 ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 {
@@ -189,19 +235,31 @@ ostream &operator<<(ostream &os, const QwixScoreSheet &qss)
 //
 ostream &QwixScoreSheet::print(ostream &out) const
 {
+    
+cout << endl;
+    out << "\t\t-------------------------------" << endl;
+    out << "\tRed";
+   // out << "\t\t" << red << endl;
+    out << "\t\t-------------------------------" << endl;
+    out << "\tYellow";
+     // out << "\t\t" << red << endl;
+    out << "\t\t-------------------------------" << endl;
+    out << "\tGreen";
+ //   out << "       " << yellow << endl;
+    out << "\t\t-------------------------------" << endl;
+    out << "\tBlue";
+  //  out << "      " << blue << endl;
+    out << "\t\t-------------------------------" << endl;   
+    return out;
 }
-//-----End of QwintoScoreSheet
-// int main()
-// {
-//     //testing
 
-//     RollOfDice r;
-//     cout << r << "roled" << endl;
-//     qr[2] = r;
-//     QwintoScoreSheet qs("Artem", qr, qy, qb);
-//     ScoreSheet& parent = qs;
-//     cout << parent;
-//     r.roll();
-//     parent.score(r, ScoreSheet::Color::RED, 5);
-//     cout << parent;
-// }
+//-----End of QwixScoreSheet
+
+int main()
+{
+    //testing
+
+QwintoScoreSheet q("Name");
+ScoreSheet& p = q;
+cout << p;
+}
