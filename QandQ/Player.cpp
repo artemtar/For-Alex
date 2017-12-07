@@ -110,7 +110,7 @@ QwixPlayer::QwixPlayer(QwixScoreSheet* qs, string _name) : Player(qs, _name){}
 {
 
 }
-void QwixPlayer::inputAfterRoll(RollOfDice &rd)
+void QwixPlayer::inputAfterRoll(RollOfDice*)
 {
 
 }

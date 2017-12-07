@@ -284,8 +284,8 @@ ostream &QwintoScoreSheet::print(ostream &out) const
 
 
 QwixScoreSheet::QwixScoreSheet(string name, int* locks): ScoreSheet(name), player_locks{locks}{}
-bool QwixScoreSheet::score(RollOfDice rd, Color c, int pos){}
-bool QwixScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice rollOfDices){}
+bool QwixScoreSheet::score(RollOfDice* rd, Color c, int pos){}
+bool QwixScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice* rollOfDices){}
 
 int QwixScoreSheet::calcHelper(int i){
     if (i == 1){
@@ -313,8 +313,8 @@ int QwixScoreSheet::calcTotal()
 }
 bool QwixScoreSheet::operator!()
 {
-    if (num_failed[3] != 4)
-        return true;
+    // if (num_failed != 4)
+    //     return true;
     int locks = 0;
     for (int i = 0; i < 4; --i){
         locks += *(player_locks + i);
@@ -365,6 +365,7 @@ cout << endl;
     return out;
 }
 
+ bool QwixScoreSheet::checkForFail(RollOfDice* rd,ScoreSheet* sheet){}
 //-----End of QwixScoreSheet
 
 // int main()
