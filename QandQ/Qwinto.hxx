@@ -12,6 +12,7 @@ template <const ScoreSheet::Color C>
 bool QwintoRow<C>::validate(int index, int value)
 {
 
+     index--;//get the array index
     //conditions for wrong place
     if (row[index] != -1)
     {
@@ -32,6 +33,7 @@ bool QwintoRow<C>::validate(int index, int value)
             return false;
         }
     }
+    row[index]=value;
     return true;
 
 }
