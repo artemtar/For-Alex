@@ -61,26 +61,58 @@ QwintoScoreSheet::QwintoScoreSheet(string name)
             : ScoreSheet(name), red( QwintoRow<RED>{}), yellow(QwintoRow<YELLOW>{}), blue( QwintoRow<BLUE>{}) {}// Aleks moved row to be created inside initializetion list
 QwintoScoreSheet::QwintoScoreSheet(const QwintoScoreSheet &from):ScoreSheet(from.name_player),red(from.red),yellow(from.yellow),blue(from.blue){}//need to give a name
 //template<class T>
-bool QwintoScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice rollOfDices){ 
+bool QwintoScoreSheet::validate(int index,ScoreSheet* sheet,RollOfDice* rollOfDices){ 
     bool out =false;
 
     QwintoScoreSheet* qwintoSheet=dynamic_cast<QwintoScoreSheet*> (sheet);
 
-    if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,rollOfDices);}
-    else if ((*qwintoSheet).yellow.chosen){out = (*qwintoSheet).yellow.validate(index,rollOfDices);}
-    else if((*qwintoSheet).blue.chosen){out = (*qwintoSheet).blue.validate(index,rollOfDices);}
+    if ((*qwintoSheet).red.chosen){out = (*qwintoSheet).red.validate(index,*rollOfDices);}//convering RollOfDices to int
+    else if ((*qwintoSheet).yellow.chosen){out = (*qwintoSheet).yellow.validate(index,*rollOfDices);}
+    else if((*qwintoSheet).blue.chosen){out = (*qwintoSheet).blue.validate(index,*rollOfDices);}
+
+
+    //clean up //make the rows unchosen again
+    (*qwintoSheet).red.chosen=false;
+    (*qwintoSheet).yellow.chosen=false;
+    (*qwintoSheet).blue.chosen=false;
+
     return true;
 }
 
+bool QwintoScoreSheet::checkForFail(RollOfDice* rollOfDice,ScoreSheet* scoreSheet){
+    bool redCondition=false;
+    bool yellowCondition=false;
+    bool blueCondition=false;
+
+    QwintoScoreSheet* qwintoSheet=dynamic_cast<QwintoScoreSheet*> (scoreSheet);
+
+    for (int i=1;i<10;i++){ 
+       qwintoSheet->red.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+       qwintoSheet->yellow.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+       qwintoSheet->blue.chosen=true;
+       redCondition = QwintoScoreSheet::validate(i,scoreSheet,rollOfDice);
+
+       //if found a place
+       if (redCondition){break;}
+       if (yellowCondition){break;}
+       if (blueCondition){break;}
+    }
+    
+
+    return redCondition||yellowCondition||blueCondition;
+}
 
 //to check if can put in the position
-bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
+bool QwintoScoreSheet::score(RollOfDice* rd, ScoreSheet::Color c, int pos)
 {
     bool colourCondition = false;
     bool positionCondition =false;
 
-    for (auto& d:rd){
-        if ((d.isEnabled)&&(c==d.c)){colourCondition=true;}
+    for (Dice& d:*rd){
+        if ((c==d.c)&&(d.isEnabled)){
+            colourCondition=true;}
     }
       //mark the chosen colour
     switch (c){
@@ -91,9 +123,10 @@ bool QwintoScoreSheet::score(RollOfDice rd, Color c, int pos)
 
       //check if position is ok
     positionCondition = validate(pos,this,rd);
-
+    //cout<<(colourCondition==true)<<"hi"<<(positionCondition==true)<<endl;
     if (colourCondition&&positionCondition){return true;}
     else{return false;}
+    
 }
 int QwintoScoreSheet::calcLine(int a, int b, int c, int val){
     if(a != -1 && b != -1, c != -1) return val;
@@ -253,11 +286,11 @@ cout << endl;
 
 //-----End of QwixScoreSheet
 
-int main()
-{
-    //testing
+// int main()
+// {
+//     //testing
 
-QwintoScoreSheet q("Name");
-ScoreSheet& p = q;
-cout << p;
-}
+// QwintoScoreSheet q("Name");
+// ScoreSheet& p = q;
+// cout << p;
+// }

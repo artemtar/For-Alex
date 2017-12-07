@@ -11,6 +11,8 @@ QwintoRow<C>::QwintoRow()
 template <const ScoreSheet::Color C>
 bool QwintoRow<C>::validate(int index, int value)
 {
+
+     index--;//get the array index
     //conditions for wrong place
     if (row[index] != -1)
     {
@@ -31,7 +33,9 @@ bool QwintoRow<C>::validate(int index, int value)
             return false;
         }
     }
+    row[index]=value;
     return true;
+
 }
 //have to decide how to return nothing if not passing validate
 template <const ScoreSheet::Color C>
