@@ -1,35 +1,39 @@
-// #ifndef QWIXROW
-// #define QWIXROW
-template <class T, const ScoreSheet::Color C>
-bool QwixRow<T, C>::validate(int index)
-{
-    //out of range
-    if (index > 11 || index < 0)
-        return false;
-    //has input already
-    else if (row[index] != -1)
-        return false;
-    else
-        return true;
+template<ScoreSheet::Color C, 
+template<class, class = allocator<int>> class Container>
+QwixRow<C, Container>::QwixRow(){
+    for(int i = 2; i < 13; ++i){
+        row.push_back(i);
+    }    
 }
-template <class T, const ScoreSheet::Color C>
-int &QwixRow<T, C>::operator[](int index)
+template<ScoreSheet::Color C, 
+template<class, class = allocator<int>> class Container>
+bool QwixRow<C, Container>::validate(int index)
 {
+    // //out of range
+    // if (index > 11 || index < 0)
+    //     return false;
+    // //has input already
+    // else if (row[index] != -1)
+    //     return false;
+    // else
+         return true;
+}
+template<ScoreSheet::Color C, 
+template<class, class = allocator<int>> class Container>
+int &QwixRow<C, Container>::operator[](int index)
+{
+    if (validate())
     return row[index];
+    else return false;
 }
-template <class T, const ScoreSheet::Color C>
-int &QwixRow<T, C>::operator+=(RollOfDice &) {
+template<ScoreSheet::Color C, 
+template<class, class = allocator<int>> class Container>
+int &QwixRow<C, Container>::operator+=(RollOfDice &) {
 
 }
-template <class T, const ScoreSheet::Color C>
-bool QwixRow<T, C>::checkAdd(int) {
+template<ScoreSheet::Color C, 
+template<class, class = allocator<int>> class Container>
+bool QwixRow<C, Container>::checkAdd(int) {
 
 }
-// template <class T, const ScoreSheet::Color C>
-// ostream &operator<< <>(ostream & out, const QwixRow<>& qr){
-//     for (auto i : qr.row){
-//         out << i;
-//     }
-//     return out;
-// }
-//#endif //QWIXROW
+
