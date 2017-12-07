@@ -63,7 +63,7 @@ class QwixPlayer : public Player
 public:
   QwixPlayer(QwixScoreSheet*, string _name); // compile complain
   std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
-  virtual void inputAfterRoll(RollOfDice &) override;
+  virtual void inputAfterRoll(RollOfDice*) override;
 };
 
 #endif //QWIXPLAYER
