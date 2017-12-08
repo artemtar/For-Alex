@@ -192,7 +192,7 @@ bool QwintoScoreSheet::score(RollOfDice *rd, ScoreSheet::Color c, int pos)
 }
 int QwintoScoreSheet::calcLine(int a, int b, int c, int val)
 {
-    if (a != -1 && b != -1, c != -1)
+    if (a > 0 && b > 0 && c > 0)
         return val;
     else
         return 0;
@@ -205,35 +205,29 @@ int QwintoScoreSheet::calcTotal()
     if (red.isFull())
         rowsTotal += red[9];
     else
-        rowsTotal = red.amountNums();
+        rowsTotal += red.amountNums();
     if (yellow.isFull())
         rowsTotal += yellow[9];
     else
-        rowsTotal = yellow.amountNums();
-    if (red.isFull())
+        rowsTotal += yellow.amountNums();
+    if (blue.isFull())
         rowsTotal += blue[9];
     else
-        rowsTotal = blue.amountNums();
+        rowsTotal += blue.amountNums();
     //calculating columns
+    //cout << endl <<"rows " <<rowsTotal << endl;
     int colTotal = 0;
-    colTotal += calcLine(red[0], yellow[1], blue[3], blue[3]);
-    colTotal += calcLine(red[1], yellow[2], blue[4], red[1]);
+    colTotal += calcLine(red[0], yellow[1], blue[2], blue[2]);
+    colTotal += calcLine(red[1], yellow[2], blue[3], red[1]);
     colTotal += calcLine(red[5], yellow[6], blue[7], red[5]);
     colTotal += calcLine(red[6], yellow[7], blue[8], yellow[7]);
     colTotal += calcLine(red[7], yellow[8], blue[9], blue[9]);
-    //int fails = 0;
-    // for (int i = 0; i < 3; ++i)
-    // {
-    //     if (num_failed[i] != -1)
-    //         fails += 1;
-    // }
 
     return rowsTotal + colTotal - 5 * this->num_failed;
 }
 //have to be polimorphic
 bool QwintoScoreSheet::operator!()
 {
-
     if (num_failed == 4)
     {
         return true;
@@ -252,8 +246,7 @@ ostream &operator<<(ostream &os, const QwintoScoreSheet &qss)
     os << endl;
 }
 ostream &QwintoScoreSheet::print(ostream &out) const
-{
-
+{   
     cout << endl;
     out << "\t\t\t-------------------------------" << endl;
     out << "\tRed";
@@ -267,6 +260,7 @@ ostream &QwintoScoreSheet::print(ostream &out) const
     out << "\t\t  -------------------------------" << endl;
     return out;
 }
+
 //-----End of QwintoScoreSheet
 
 //-----Initialization of QwixScoreSheet
@@ -370,18 +364,15 @@ cout << endl;
  }
 //-----End of QwixScoreSheet
 
-// int main()
+//  int main()
 // {
  
-//     int *locks = new int[4];
-//         for (int i = 0; i < 4; ++i){
-//         *(locks + i) = 0;
-//     }
-
-//     QwixScoreSheet q("Artem", locks);
-//     ScoreSheet* s = &q;
-//     cout << *s;
+// //     int *locks = new int[4];
+// //         for (int i = 0; i < 4; ++i){
+// //         *(locks + i) = 0;
+// //     }
 
 
 
-// }
+
+//  }

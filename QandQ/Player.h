@@ -6,8 +6,6 @@ class Player
 {
 protected:
   bool status = false;
- 
-
 public:
   //data
   string name;
@@ -28,8 +26,7 @@ public:
   virtual inline bool getStatus(){return status;}
   virtual  std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) = 0;
   virtual void inputAfterRoll(RollOfDice*) = 0;
-  //friend istream &operator>>(istream &, Player &);// most like likely do not need leave it for now
-  bool operator <(const Player&);
+  bool operator >(const Player&);
   //bool findWinner(Player*, Player*); looking a place to implement
   friend ostream &operator<<(ostream &, const Player &);
   
@@ -61,7 +58,6 @@ public:
 
 class QwixPlayer : public Player
 {
-
 public:
   QwixPlayer(QwixScoreSheet*, string _name); // compile complain
   std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;

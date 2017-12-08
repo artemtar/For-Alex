@@ -42,7 +42,8 @@ ScoreSheet::Color QwintoPlayer::choseColor()
         c = ScoreSheet::Color::YELLOW;
     if (choiceOfC == 3)
         c = ScoreSheet::Color::BLUE;
-    return c;
+        //cout << "COLOR" << c << endl; 
+            return c;
 }
 
 ScoreSheet::Color QwixPlayer::choseColor()
@@ -72,8 +73,9 @@ ScoreSheet::Color QwixPlayer::choseColor()
     return c;
 }
 
-bool Player::operator <(const Player& p) {
-         if(sheet->getScore() < p.sheet->getScore())
+bool Player::operator >(const Player& p) {
+         if(sheet->getScore() > p.sheet->getScore())
+
             return true;     
          }
 // bool Player::findWinner(Player* p1, Player* p2){
@@ -99,15 +101,23 @@ void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
 
                         if (sheet->score(rd,chosenColour,chosenPosition)){
                             cout<< name <<", you put roll in your scoresheet"<<endl;
-                            cout<< *sheet <<endl;
+                            cout<< *sheet << endl;
                             break;
                         }
                         else{
                             cout << "Incorrect input, plaese repeat. " << endl;
+                            if(status){
+                                cout << "You are active player. If there are no right input position" << endl << "do you want to use fail field? (1. Yes 2. No)" << endl;
+                                int input = -1;
+                                input = inputChecker(1,2);
+                                if (input == 1) sheet->addFail();
+                                cout << *sheet;
+                                break;
+                            }else{
                             cout << "If you changed your mind and want to skip the turn input 42. ";
                             string fortytwo;
                             cin >> fortytwo;
-                            if(fortytwo == "42") break;
+                            if(fortytwo == "42") break;}
                         }
                     }
 }
@@ -192,9 +202,4 @@ void QwixPlayer::inputAfterRoll(RollOfDice* rd)
 }
 //qwixpalyer ends
 
-// int main()
-// {
-//     QwixScoreSheet s("Artem");
-//     QwixPlayer p(&s, "Artem");
 
-// }
