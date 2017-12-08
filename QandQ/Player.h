@@ -18,7 +18,7 @@ public:
   Player(const Player&);
   virtual ~Player();
 
-  ScoreSheet::Color choseColor();
+  virtual ScoreSheet::Color choseColor()=0;
   //set players status
 
   inline void setStatusActive(){status = true;}
@@ -48,8 +48,10 @@ public:
     QwintoPlayer(const QwintoPlayer &from);
     ~QwintoPlayer();//for debuging
     //virtual
-     std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
+    std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
     virtual void inputAfterRoll(RollOfDice*) override;
+
+     ScoreSheet::Color choseColor() override;
 };
 
 #endif //QWINTOPLAYER
@@ -64,6 +66,8 @@ public:
   QwixPlayer(QwixScoreSheet*, string _name); // compile complain
   std::vector<ScoreSheet::Color> inputBeforeRoll(RollOfDice &,int) override;
   virtual void inputAfterRoll(RollOfDice*) override;
+
+  ScoreSheet::Color choseColor() override;
 };
 
 #endif //QWIXPLAYER

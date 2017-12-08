@@ -45,10 +45,14 @@ struct RollOfDice
     std::vector<Dice>::iterator begin();
     std::vector<Dice>::iterator end();
 
-
-    RollOfDice pair(int, int);
-
     operator int();
+
+    //for Qwix
+    void addMoreDices();
+
+    RollOfDice pair(Dice&, Dice&);
+
+
     
 };
 

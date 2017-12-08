@@ -119,7 +119,7 @@ bool QwintoScoreSheet::checkForFail(RollOfDice *rollOfDice, ScoreSheet *scoreShe
             outB=false;
         }
     }
-    if ((outR+outY+outB)>3){return true;}
+    if ((outR+outY+outB)>=3){return true;}
     else{return false;}
 }
 
@@ -365,7 +365,9 @@ cout << endl;
     return out;
 }
 
- bool QwixScoreSheet::checkForFail(RollOfDice* rd,ScoreSheet* sheet){}
+ bool QwixScoreSheet::checkForFail(RollOfDice* rd,ScoreSheet* sheet){
+     return false;
+ }
 //-----End of QwixScoreSheet
 
 // int main()

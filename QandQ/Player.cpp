@@ -26,8 +26,8 @@ ostream &operator<<(ostream &os, const Player &p)
 {
     return os << *(p.sheet);
 }
-//initilizing qiwinto player
-ScoreSheet::Color Player::choseColor()
+//choose color
+ScoreSheet::Color QwintoPlayer::choseColor()
 {
     cout << "Please, chose the color:" << endl;
     cout << "1. Red" << endl;
@@ -44,6 +44,34 @@ ScoreSheet::Color Player::choseColor()
         c = ScoreSheet::Color::BLUE;
     return c;
 }
+
+ScoreSheet::Color QwixPlayer::choseColor()
+{
+    cout << "Please, chose the color:" << endl;
+    cout << "1. Red" << endl;
+    cout << "2. Yellow" << endl;
+    cout << "3. Blue" << endl;
+    cout << "4. Red" << endl;
+    cout << "5. White1" << endl;
+    cout << "6. White2" << endl;
+    cout << "Input: ";
+    ScoreSheet::Color c;
+    int choiceOfC = inputChecker(1, 6);
+    if (choiceOfC == 1)
+        c = ScoreSheet::Color::RED;
+    if (choiceOfC == 2)
+        c = ScoreSheet::Color::YELLOW;
+    if (choiceOfC == 3)
+        c = ScoreSheet::Color::BLUE;
+    if (choiceOfC == 4)
+        c = ScoreSheet::Color::GREEN;
+    if (choiceOfC == 5)
+        c = ScoreSheet::Color::WHITE;
+    if (choiceOfC == 6)
+        c = ScoreSheet::Color::WHITE;
+    return c;
+}
+
 bool Player::operator <(const Player& p) {
          if(sheet->getScore() < p.sheet->getScore())
             return true;     
@@ -106,13 +134,61 @@ void QwintoPlayer::inputAfterRoll(RollOfDice* rd)
 
 //qwixplayer intitialization
 QwixPlayer::QwixPlayer(QwixScoreSheet* qs, string _name) : Player(qs, _name){}
- std::vector<ScoreSheet::Color> QwixPlayer::inputBeforeRoll(RollOfDice &rd, int whateveralexwhants)
+ std::vector<ScoreSheet::Color> QwixPlayer::inputBeforeRoll(RollOfDice &rd, int numOfDices)
 {
+    rd.addMoreDices();//get green and 2 yellow
 
+    std::vector<ScoreSheet::Color> colours{};
+    //get the colours from the user
+    for (int i=0; i < numOfDices; i++){
+        ScoreSheet::Color receivedColour;
+        std::cout<<"What is the colour of the dice number "<< i + 1 << endl;
+        receivedColour = choseColor();
+        for(auto colour:colours){
+            if (colour==receivedColour){
+                std::cout<<"You already chosen this colour. Please choose another one";
+                receivedColour=choseColor();
+            }
+        }
+        colours.push_back(receivedColour);  
+    }
+    return colours;
 }
-void QwixPlayer::inputAfterRoll(RollOfDice*)
+void QwixPlayer::inputAfterRoll(RollOfDice* rd)
 {
+     while(true){
+                        int numOfDicesUsed;
+                        cout<<"How many dices do you want to record?"<<endl;
+                        cin>>numOfDicesUsed;
+                        
+                        //ask what would be the 
 
+                        int chosenColourNum =-1;
+                        cout << name << ", what is the colour of the row you want to put the roll in? ";
+                        ScoreSheet::Color chosenColour = choseColor();
+                        
+                        int chosenPosition = -1;
+                        cout<<name << ", what is the position in the row you want to put the roll in? ";
+                       // chosenPosition = inputChecker(1,10);
+                        cin>>chosenPosition;
+                        
+                       QwixScoreSheet* temp =dynamic_cast<QwixScoreSheet*> (this->sheet);//->red[position];
+                       (temp->red)[chosenPosition]=-1;
+                       cout<<*(this->sheet);
+                       //(temp->red)[chosenPosition]=-1;
+                      //  if (sheet->score(rd,chosenColour,chosenPosition)){
+                      //      cout<< name <<", you put roll in your scoresheet"<<endl;
+                       //     cout<< *sheet <<endl;
+                        //    break;
+                       // }
+                        // else{
+                        //     cout << "Incorrect input, plaese repeat. " << endl;
+                        //     cout << "If you changed your mind and want to skip the turn input 42. ";
+                        //     string fortytwo;
+                        //     cin >> fortytwo;
+                        //     if(fortytwo == "42") break;
+                        // }
+                    }
 }
 //qwixpalyer ends
 

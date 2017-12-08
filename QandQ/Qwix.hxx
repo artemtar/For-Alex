@@ -22,9 +22,9 @@ template<ScoreSheet::Color C,
 template<class, class = allocator<int>> class Container>
 int &QwixRow<C, Container>::operator[](int index)
 {
-    if (validate())
-    return row[index];
-    else return false;
+    //if (validate())
+    return row.front();
+   // else return false;
 }
 template<ScoreSheet::Color C, 
 template<class, class = allocator<int>> class Container>
