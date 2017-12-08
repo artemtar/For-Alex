@@ -114,10 +114,10 @@ int main()
                // cout<<(currentPlayer)->getScoreSheet();
                 //mark current player as active??
 
-                cout << "Please input the number of dices you want to roll as a number?(1,2 or 3) : ";
+                cout << "Please input the number of dices you want to roll as a number?((1..3 for Qwinto),(1..6 for Qwix)) : ";
                 //ask if the player wants to roll 1,2 or 3 dices
                 int currentRollNumOfDices = -1;
-                currentRollNumOfDices = inputCheckerForMain(1, 3);
+                cin>>currentRollNumOfDices; //= inputCheckerForMain(1, 3);
 
                 //get the colours of the dices from the user and roll the dices with the selected collour
 
@@ -145,14 +145,14 @@ int main()
                 for (Player *tempPlayer : players)
                 {
                     if (tempPlayer == currentPlayer)
-                        continue;//?????
+                        continue;//
                     bool wantToPutInScoreheet = -1;
                     cout << *tempPlayer; //print the scoresheet of the player we ask if wants to put result in scoresheet
                     cout << tempPlayer->name << ", do you want to put this roll in your scoresheet?(1 for yes, 0 for no) ";
                     wantToPutInScoreheet = inputCheckerForMain(0, 1);
                     if (wantToPutInScoreheet){tempPlayer->inputAfterRoll(&currentRoll);}
 
-                    if (!(*(tempPlayer->sheet))){currentPlayer = tempPlayer;cout<<"2ndBreak";break;}
+                    if (!(*(tempPlayer->sheet))){currentPlayer = tempPlayer;break;}
                 }
                 currentPlayer->setStatusInactuve();                
                 break;

@@ -289,14 +289,15 @@ public:
 #define QWIXSCORESHEET
 class QwixScoreSheet : public ScoreSheet
 {
-QwixRow<ScoreSheet::Color::BLUE, vector> blue;
-QwixRow<ScoreSheet::Color::GREEN, vector> green;
-QwixRow<ScoreSheet::Color::RED, list> red;
-QwixRow<ScoreSheet::Color::YELLOW, list> yellow;
+
 
   int* player_locks;
 
 public:
+QwixRow<ScoreSheet::Color::BLUE, vector> blue;
+QwixRow<ScoreSheet::Color::GREEN, vector> green;
+QwixRow<ScoreSheet::Color::RED, list> red;
+QwixRow<ScoreSheet::Color::YELLOW, list> yellow;
   //constructors  
   QwixScoreSheet(string, int*);
   //functions

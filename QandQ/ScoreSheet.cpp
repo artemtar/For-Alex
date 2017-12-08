@@ -359,7 +359,9 @@ cout << endl;
     return out;
 }
 
- bool QwixScoreSheet::checkForFail(RollOfDice* rd,ScoreSheet* sheet){}
+ bool QwixScoreSheet::checkForFail(RollOfDice* rd,ScoreSheet* sheet){
+     return false;
+ }
 //-----End of QwixScoreSheet
 
 //  int main()
