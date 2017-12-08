@@ -27,7 +27,7 @@ int inputCheckerForMain(int boundA, int boundB)
 
 bool findWinner(Player *p1, Player *p2)
 {
-    return *p1 < *p2;
+    return *p1 > *p2;
 }
 
 int main()
@@ -110,6 +110,7 @@ int main()
             while (true)//the loop to be in the turn
             {
                 cout << "The active player is " << currentPlayer->name << endl;
+                currentPlayer->setStatusActive();
                // cout<<(currentPlayer)->getScoreSheet();
                 //mark current player as active??
 
@@ -153,7 +154,7 @@ int main()
 
                     if (!(*(tempPlayer->sheet))){currentPlayer = tempPlayer;cout<<"2ndBreak";break;}
                 }
-                
+                currentPlayer->setStatusInactuve();                
                 break;
             }
             gameOver = !(*(currentPlayer->sheet));//{cout<<"3rdbreak";break;};
@@ -169,12 +170,17 @@ int main()
                 cout << "Game is ended on player" << p->name << endl;
                 break;
             }
-        }
-        //finding winner
-        for_each(players.begin(), players.end(), [](Player *p) {ScoreSheet* s = p->getScoreSheet(); s->setTotal(); });
-        sort(players.begin(), players.end(), findWinner);
-        Player *winner = players.at(0);
-        cout << "The winner is " << winner->name << endl;
-        break;
+}
+   for_each(players.begin(), players.end(), [](Player *p) {ScoreSheet* s = p->getScoreSheet(); s->setTotal(); });
+    sort(players.begin(), players.end(), findWinner);
+    Player  *p1 = players.at(0);
+    Player *p2 = players.at(1);
+     if(p1->getScoreSheet()->getScore() != p2->getScoreSheet()->getScore())
+        {Player *winner = players.at(0);
+        cout << endl << "The winner is: " << winner->name << "!" << endl;}
+        else {cout << endl << "There is a draw" << endl; }
+        for (Player* p : players)
+        cout << p->name << " has score of: " << (p->getScoreSheet())->getScore() << endl;  
+break;
     }
 }

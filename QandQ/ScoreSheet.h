@@ -16,24 +16,16 @@ class ScoreSheet
 private:
   //data
 
-  int overallScore;
+  int overallScore = -1;
   //Give the class ScoreSheet a print function that accepts an std::ostream and
 protected:
   //data
   string name_player;
-
-  
-  //int num_failed[4];
-  //functions
-
   virtual bool validate(int,ScoreSheet*,RollOfDice*) = 0; 
-    
-
 
 public:
   //data
   int num_failed;//change to next line to get to the array
-
   enum Color
   {
     RED,
@@ -47,8 +39,7 @@ public:
   ScoreSheet(const ScoreSheet &from);
   virtual ~ScoreSheet();
   //functions
-
-
+  inline int getf(){return num_failed;}
   void addFail();
   virtual bool operator!();
   friend ostream &operator<<(ostream &, const ScoreSheet &);
@@ -70,11 +61,13 @@ class QwintoRow
 {
 private:
   int row[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};//changed for testing
-
-public:
+  //testing
+ 
+public:  
   bool validate(int, int);
   bool chosen = false;
   QwintoRow();
+  void test(){for (int a : row) cout << a;}
   int &operator[](int);
   bool isFull();
   int amountNums();
@@ -288,7 +281,6 @@ public:
   bool operator!() override;
   ostream &print(ostream &) const override;
   friend ostream &operator<<(ostream &, const QwintoScoreSheet &);
-
 };
 #endif //QWINTOSCORESHEET
 

@@ -90,8 +90,7 @@ int &QwintoRow<C>::operator[](int index)
     // if (validate(index))
     return row[index]; //guy said no throwing here
     //if cannot insert return -1 for error check
-    // else
-    //throw;//not sure if correct, check latter
+//I know, I inserted validate in other part of code, it works the same
 }
 //returns true if row is full
 template <const ScoreSheet::Color C>
@@ -100,10 +99,10 @@ bool QwintoRow<C>::isFull()
     int count = 0;
     for (int i = 0; i < 10; ++i)
     {
-        if (row[i] != -1)
-            count++;//changed WArning! was ++c
+        if (row[i] > 0)
+            count++;//changed WArning! was ++c// why?
     }
-    if (count == 10)
+    if (count >= 9)
         return true;
     else
         return false;
@@ -115,7 +114,7 @@ int QwintoRow<C>::amountNums()
     int count = 0;
     for (int i = 0; i < 10; ++i)
     {
-        if (row[i] != -1)
+        if (row[i] > 0)
             ++count;
     }
     return count;
